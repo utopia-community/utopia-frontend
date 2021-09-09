@@ -119,6 +119,6 @@ function App() {
       </Layout>
     </Layout>
   );
-}
+};
 
 export default App;
