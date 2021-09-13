@@ -4,6 +4,8 @@ import "./App.css";
 import "./Announcement.js";
 import "./Profile.js";
 import "./Login.js";
+import "./Request.js";
+import "./NewRequest.js";
 
 import { Layout, Button, Menu, Space, Card } from "antd";
 import {
@@ -16,6 +18,7 @@ import Announcement from "./Announcement.js";
 import Profile from "./Profile.js";
 import Payment from "./Payment.js";
 import Request from "./Request.js";
+import NewRequest from "./NewRequest.js";
 import Login from "./Login.js";
 
 const { Header, Content, Sider } = Layout;
@@ -67,7 +70,7 @@ function App() {
               key="1"
               icon={<ContainerOutlined />}
               onClick={() => {
-                history.push("/page_announcement");
+                history.push("/announcement");
               }}
             >
               Announcement
@@ -76,7 +79,7 @@ function App() {
               key="2"
               icon={<ToolOutlined />}
               onClick={() => {
-                history.push("/page_request");
+                history.push("/request");
               }}
             >
               Request
@@ -85,7 +88,7 @@ function App() {
               key="3"
               icon={<DollarCircleOutlined />}
               onClick={() => {
-                history.push("/page_payment");
+                history.push("/payment");
               }}
             >
               Payment
@@ -94,7 +97,7 @@ function App() {
               key="4"
               icon={<UserOutlined />}
               onClick={() => {
-                history.push("/page_profile");
+                history.push("/profile");
               }}
             >
               Profile
@@ -111,16 +114,19 @@ function App() {
             }}
           >
             <Switch>
-              <Route path="/page_announcement" exact>
+              <Route path="/announcement" exact>
                 <Announcement />
               </Route>
-              <Route path="/page_request" exact>
+              <Route path="/request" exact>
                 <Request />
               </Route>
-              <Route path="/page_payment" exact>
+              <Route path="/request/new-request" exact>
+                <NewRequest />
+              </Route>
+              <Route path="/payment" exact>
                 <Payment />
               </Route>
-              <Route path="/page_profile" exact>
+              <Route path="/profile" exact>
                 <Profile />
               </Route>
             </Switch>

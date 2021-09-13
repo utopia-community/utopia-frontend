@@ -3,7 +3,7 @@ import { Card } from 'antd';
 import "./Profile.js";
 
 
-const Annoucement = () => {  
+const Announcement = () => {  
   return (
     <Card title="Announcement">
       <Card type="inner" title="Inner Card title 1" extra={<a href="#">More</a>}>
@@ -21,4 +21,4 @@ const Annoucement = () => {
   );
 };
 
-export default Annoucement;
+export default Announcement;
