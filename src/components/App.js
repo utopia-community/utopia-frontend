@@ -1,7 +1,9 @@
 import * as React from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 import "./App.css";
 import "./Announcement.js";
 import "./Profile.js";
+import "./Login.js";
 
 import { Layout, Button, Menu, Space, Card } from "antd";
 import {
@@ -14,15 +16,12 @@ import Announcement from "./Announcement.js";
 import Profile from "./Profile.js";
 import Payment from "./Payment.js";
 import Request from "./Request.js";
+import Login from "./Login.js";
 
 const { Header, Content, Sider } = Layout;
 
 function App() {
-  const [page, setPage] = React.useState("page_announcement");
-
-  const updatePage = (page) => {
-    setPage(page);
-  };
+  const history = useHistory();
 
   return (
     <Layout>
@@ -37,7 +36,7 @@ function App() {
             style={{
               color: "white",
               fontSize: 28,
-              fontWeight: 'bold',
+              fontWeight: "bold",
               letterSpacing: 0.5,
               textTransform: "uppercase",
               textAlign: "center",
@@ -60,6 +59,7 @@ function App() {
           </div>
         </div>
       </Header>
+
       <Layout>
         <Sider theme="light" width={200} className="site-layout-background">
           <Menu defaultSelectedKeys={["1"]} mode="inline" theme="light">
@@ -67,7 +67,7 @@ function App() {
               key="1"
               icon={<ContainerOutlined />}
               onClick={() => {
-                updatePage("page_announcement");
+                history.push("/page_announcement");
               }}
             >
               Announcement
@@ -76,7 +76,7 @@ function App() {
               key="2"
               icon={<ToolOutlined />}
               onClick={() => {
-                updatePage("page_request");
+                history.push("/page_request");
               }}
             >
               Request
@@ -85,7 +85,7 @@ function App() {
               key="3"
               icon={<DollarCircleOutlined />}
               onClick={() => {
-                updatePage("page_payment");
+                history.push("/page_payment");
               }}
             >
               Payment
@@ -94,7 +94,7 @@ function App() {
               key="4"
               icon={<UserOutlined />}
               onClick={() => {
-                updatePage("page_profile");
+                history.push("/page_profile");
               }}
             >
               Profile
@@ -110,15 +110,26 @@ function App() {
               minHeight: "100vh",
             }}
           >
-              {page === "page_announcement" && <Announcement />}
-              {page === "page_request" && <Request />}
-              {page === "page_payment" && <Payment />}
-              {page === "page_profile" && <Profile />}
+            <Switch>
+              <Route path="/page_announcement" exact>
+                <Announcement />
+              </Route>
+              <Route path="/page_request" exact>
+                <Request />
+              </Route>
+              <Route path="/page_payment" exact>
+                <Payment />
+              </Route>
+              <Route path="/page_profile" exact>
+                <Profile />
+              </Route>
+            </Switch>
+
           </Content>
         </Layout>
       </Layout>
     </Layout>
   );
-};
+}
 
 export default App;

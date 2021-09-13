@@ -1,6 +1,6 @@
 const Payment = () => (
     <div>
-      My payment! 
+      My payment!
     </div>
   );
   
