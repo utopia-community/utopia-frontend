@@ -27,6 +27,7 @@ const { Header, Content, Sider } = Layout;
 
 function App() {
   const history = useHistory();
+  history.push("/announcement");
 
   return (
     <Layout>

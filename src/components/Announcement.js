@@ -35,9 +35,9 @@ const Announcement = () => {
         style={{ marginTop: 16 }}
         type="inner"
         title="Title 2"
-        extra={<a href="#">More</a>}
+        extra={<Link to="/announcement-details">More</Link>}
       >
-        Inner Card content
+        <AnnouncementContent content="Content here..." />
       </Card>
     </Card>
   );
