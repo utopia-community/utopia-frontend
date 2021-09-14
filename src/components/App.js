@@ -6,6 +6,7 @@ import "./Profile.js";
 import "./Login.js";
 import "./Request.js";
 import "./NewRequest.js";
+import "./AnnouncementDetails.js";
 
 import { Layout, Button, Menu, Space, Card } from "antd";
 import {
@@ -15,6 +16,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import Announcement from "./Announcement.js";
+import AnnouncementDetails from "./AnnouncementDetails.js";
 import Profile from "./Profile.js";
 import Payment from "./Payment.js";
 import Request from "./Request.js";
@@ -117,6 +119,9 @@ function App() {
               <Route path="/announcement" exact>
                 <Announcement />
               </Route>
+              <Route path="/announcement-details" exact>
+                <AnnouncementDetails />
+              </Route>
               <Route path="/request" exact>
                 <Request />
               </Route>
@@ -130,7 +135,6 @@ function App() {
                 <Profile />
               </Route>
             </Switch>
-
           </Content>
         </Layout>
       </Layout>
