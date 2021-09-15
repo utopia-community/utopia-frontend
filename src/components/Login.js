@@ -1,38 +1,35 @@
-import { Form, Input, Button, Checkbox } from 'antd';
-import Register from './Register';
-import { useHistory } from "react-router-dom";
+import { Form, Input, Button, Checkbox } from "antd";
+import Register from "./Register";
+import { Route, useHistory } from "react-router-dom";
 
-let Authen_state = 0
-let input_username
-let input_password
+let username;
+let password;
 
-const Auth = () => {
-  input_username = document.getElementById("username").value;
-  input_password = document.getElementById("password").value;
-
-  if (input_username === "AAAA" && input_password === "BBBB") {
-    Authen_state = 1;
-    document.getElementById("output").innerHTML = "Login Successfully"
-  } else {
-    Authen_state = 0;
-    document.getElementById("output").innerHTML = "Login Failed"
-  }
-  console.log(Authen_state)
- 
-}
-
-const Login = () => {
-  const history = useHistory()
+const Login = (props) => {
+  const history = useHistory();
   const onFinish = (values) => {
-    console.log('Success:', values);
+    console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
- 
+
+  const onInputName = (e) => {
+    username = e.target.value;
+  };
+
+  const onInputPassword = (e) => {
+    password = e.target.value;
+  };
+
+  const validateLogin = (username, password) => {
+    if ((username = "AAAA" && password == "BBBB")) {
+      props.onSuccess();
+    }
+  };
+
   return (
-    
     <Form
       name="basic"
       labelCol={{
@@ -47,7 +44,6 @@ const Login = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-      
     >
       <Form.Item
         label="Username"
@@ -55,11 +51,11 @@ const Login = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your username!',
+            message: "Please input your username!",
           },
         ]}
       >
-        <Input id="username"/>
+        <Input id="username" onChange={onInputName} />
       </Form.Item>
 
       <Form.Item
@@ -68,11 +64,11 @@ const Login = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: "Please input your password!",
           },
         ]}
       >
-        <Input.Password id="password"/>
+        <Input.Password id="password" onChange={onInputPassword} />
       </Form.Item>
 
       <Form.Item
@@ -92,35 +88,37 @@ const Login = () => {
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit" onClick={Auth}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          onClick={() => {
+            validateLogin(username, password);
+          }}
+        >
           Submit
         </Button>
       </Form.Item>
 
-      <Form.Item 
+      <Form.Item
         wrapperCol={{
           offset: 8,
           span: 16,
         }}
       >
-          <Button onClick={()=> history.push('/login/register')}>Register Now</Button>
+        <Button onClick={() => history.push("/register")}>Register Now</Button>
       </Form.Item>
 
-      <Form.Item 
+      <Form.Item
         wrapperCol={{
           offset: 8,
           span: 16,
         }}
-      >  <div type="text" id="output">
-           
-          
-          </div>
+      >
+        {" "}
+        <div type="text" id="output"></div>
       </Form.Item>
 
     </Form>
   );
 };
-  export default Login;
-
-
-  
+export default Login;

@@ -31,6 +31,12 @@ function App() {
   const history = useHistory();
   history.push("/announcement");
 
+  const [authenticated, setAuthenticated] = React.useState(false);
+
+  if (!authenticated) {
+    return <Login onSuccess={() => setAuthenticated(true)}/>
+  }
+
   return (
     <Layout>
       <Header className="header">
@@ -131,9 +137,6 @@ function App() {
               
               <Route path="/login" exact>
                 <Login />
-              </Route>
-              <Route path="/login/register" exact>
-                <Register />
               </Route>
               <Route path="/announcement" exact>
                 <Announcement />
