@@ -105,6 +105,15 @@ function App() {
             >
               Profile
             </Menu.Item>
+            <Menu.Item
+              key="5"
+              icon={<UserOutlined />}
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              Login
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
@@ -117,6 +126,11 @@ function App() {
             }}
           >
             <Switch>
+              
+              <Route path="/login" exact>
+                <Login />
+              </Route>
+
               <Route path="/announcement" exact>
                 <Announcement />
               </Route>
@@ -135,6 +149,7 @@ function App() {
               <Route path="/profile" exact>
                 <Profile />
               </Route>
+
             </Switch>
           </Content>
         </Layout>
