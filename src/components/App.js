@@ -7,6 +7,7 @@ import "./Login.js";
 import "./Request.js";
 import "./NewRequest.js";
 import "./AnnouncementDetails.js";
+import "./Register.js";
 
 import { Layout, Button, Menu, Space, Card } from "antd";
 import {
@@ -22,6 +23,7 @@ import Payment from "./Payment.js";
 import Request from "./Request.js";
 import NewRequest from "./NewRequest.js";
 import Login from "./Login.js";
+import Register from "./Register.js";
 
 const { Header, Content, Sider } = Layout;
 
@@ -130,7 +132,9 @@ function App() {
               <Route path="/login" exact>
                 <Login />
               </Route>
-
+              <Route path="/login/register" exact>
+                <Register />
+              </Route>
               <Route path="/announcement" exact>
                 <Announcement />
               </Route>

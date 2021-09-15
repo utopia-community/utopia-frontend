@@ -1,4 +1,7 @@
 import { Form, Input, Button, Checkbox } from 'antd';
+import Register from './Register';
+import { useHistory } from "react-router-dom";
+
 let Authen_state = 0
 let input_username
 let input_password
@@ -19,6 +22,7 @@ const Auth = () => {
 }
 
 const Login = () => {
+  const history = useHistory()
   const onFinish = (values) => {
     console.log('Success:', values);
   };
@@ -28,13 +32,14 @@ const Login = () => {
   };
  
   return (
+    
     <Form
       name="basic"
       labelCol={{
         span: 8,
       }}
       wrapperCol={{
-        span: 16,
+        span: 8,
       }}
       initialValues={{
         remember: true,
@@ -42,7 +47,7 @@ const Login = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-      size="large"
+      
     >
       <Form.Item
         label="Username"
@@ -98,7 +103,7 @@ const Login = () => {
           span: 16,
         }}
       >
-          <Button >Register Now</Button>
+          <Button onClick={()=> history.push('/login/register')}>Register Now</Button>
       </Form.Item>
 
       <Form.Item 
