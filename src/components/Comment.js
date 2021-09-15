@@ -69,28 +69,6 @@ const CommentSection = () => {
 
     setSubmitting(true);
 
-    // Make API call, submit comment to the server
-    // fetch("/api/comment", { method: "POST" })
-    //   .then((response) => response.json())
-    //   .then((res) => {
-    //     setSubmitting(false);
-    //     if (res.success) {
-    //       setValue("");
-    //       setComments([
-    //         ...comments,
-    //         {
-    //           author: "Elsa",
-    //           avatar:
-    //             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    //           content: <p>{value}</p>,
-    //           datetime: moment().fromNow(),
-    //         },
-    //       ]);
-    //     } else {
-    //       setError(res.error.message);
-    //     }
-    //   });
-
     setTimeout(() => {
       setSubmitting(false);
       setValue("");
