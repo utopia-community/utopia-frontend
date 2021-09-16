@@ -1,7 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
@@ -59,6 +57,10 @@ function App() {
   return (
     <div>
       <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+
         <Route path="/login">
           <Login
             onLogin={() => {
@@ -119,12 +121,5 @@ function App() {
     </div>
   );
 }
-
-const obj = { a: 1, b: 2, c: 3, d: 4 };
-const { a, b, ...bla } = obj;
-
-// a == 1
-// b == 2
-// bla == {c: 3, d: 4}
 
 export default App;

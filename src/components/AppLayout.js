@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useHistory,
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./Announcement.js";
 import "./Profile.js";
 import "./Login.js";
@@ -16,13 +11,12 @@ import {
   DollarCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Layout, Button, Menu, Space, Card } from "antd";
+import { Layout, Button, Menu, Space } from "antd";
 
 const { Header, Content, Sider } = Layout;
 
-const AppLayout = ({children}) => {
+const AppLayout = ({ children }) => {
   const history = useHistory();
-  // history.push("/announcement");
   return (
     <Layout>
       <Header className="header">
@@ -98,15 +92,6 @@ const AppLayout = ({children}) => {
               }}
             >
               Profile
-            </Menu.Item>
-            <Menu.Item
-              key="5"
-              icon={<UserOutlined />}
-              onClick={() => {
-                history.push("/login");
-              }}
-            >
-              Login
             </Menu.Item>
           </Menu>
         </Sider>

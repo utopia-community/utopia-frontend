@@ -1,6 +1,5 @@
 import { Form, Input, Button, Checkbox } from "antd";
-import Register from "./Register";
-import { Route, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 let username;
 let password;
@@ -24,7 +23,7 @@ const Login = (props) => {
   };
 
   const validateLogin = (username, password) => {
-    if ((username = "AAAA" && password == "BBBB")) {
+    if (username === "AAAA" && password === "BBBB") {
       props.onLogin();
     }
   };
@@ -117,7 +116,6 @@ const Login = (props) => {
         {" "}
         <div type="text" id="output"></div>
       </Form.Item>
-
     </Form>
   );
 };
