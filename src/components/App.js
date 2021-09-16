@@ -1,145 +1,124 @@
 import * as React from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
-import "./App.css";
-import "./Announcement.js";
-import "./Profile.js";
-import "./Login.js";
-import "./Request.js";
-import "./NewRequest.js";
-import "./AnnouncementDetails.js";
-
-import { Layout, Button, Menu, Space, Card } from "antd";
 import {
-  ToolOutlined,
-  ContainerOutlined,
-  DollarCircleOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+  Switch,
+  Route,
+  Redirect,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
+import "./App.css";
+import "./Login.js";
+
 import Announcement from "./Announcement.js";
 import AnnouncementDetails from "./AnnouncementDetails.js";
 import Profile from "./Profile.js";
+import Register from "./Register.js";
 import Payment from "./Payment.js";
 import Request from "./Request.js";
 import NewRequest from "./NewRequest.js";
 import Login from "./Login.js";
+import AppLayout from "./AppLayout.js";
 
-const { Header, Content, Sider } = Layout;
+const PrivateRoute = ({ children, authenticated, ...rest }) => {
+  // return (
+  //   <Route
+  //     {...rest}
+  //     // {...{path: '/protected'}}
+  //     // path='/protected'
+  //     render={({ location }) =>
+  //       authenticated ? (
+  //         children
+  //       ) : (
+  //         <Redirect
+  //           to={{
+  //             pathname: "/login",
+  //             state: { from: location },
+  //           }}
+  //         />
+  //       )
+  //     }
+  //   />
+  // );
+
+  const location = useLocation();
+  if (authenticated) {
+    return <Route {...rest}>{children}</Route>;
+  } else {
+    return <Redirect to={{ pathname: "/login", state: { from: location } }} />;
+  }
+};
 
 function App() {
   const history = useHistory();
-  history.push("/announcement");
+
+  const [authenticated, setAuthenticated] = React.useState(false);
+  console.log("App: ", authenticated);
 
   return (
-    <Layout>
-      <Header className="header">
-        <div
-          style={{
-            display: "flex",
-          }}
-        >
-          <div
-            className="logo"
-            style={{
-              color: "white",
-              fontSize: 28,
-              fontWeight: "bold",
-              letterSpacing: 0.5,
-              textTransform: "uppercase",
-              textAlign: "center",
-            }}
-          >
-            UTOPIA
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexGrow: 1,
-              justifyContent: "flex-end",
-            }}
-          >
-            <Space>
-              <Button type="default" size="middle">
-                Logout
-              </Button>
-            </Space>
-          </div>
-        </div>
-      </Header>
+    <div>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
 
-      <Layout>
-        <Sider theme="light" width={200} className="site-layout-background">
-          <Menu defaultSelectedKeys={["1"]} mode="inline" theme="light">
-            <Menu.Item
-              key="1"
-              icon={<ContainerOutlined />}
-              onClick={() => {
-                history.push("/announcement");
-              }}
-            >
-              Announcement
-            </Menu.Item>
-            <Menu.Item
-              key="2"
-              icon={<ToolOutlined />}
-              onClick={() => {
-                history.push("/request");
-              }}
-            >
-              Request
-            </Menu.Item>
-            <Menu.Item
-              key="3"
-              icon={<DollarCircleOutlined />}
-              onClick={() => {
-                history.push("/payment");
-              }}
-            >
-              Payment
-            </Menu.Item>
-            <Menu.Item
-              key="4"
-              icon={<UserOutlined />}
-              onClick={() => {
-                history.push("/profile");
-              }}
-            >
-              Profile
-            </Menu.Item>
-          </Menu>
-        </Sider>
-        <Layout style={{ padding: "0 24px 24px" }}>
-          <Content
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: "100vh",
+        <Route path="/login">
+          <Login
+            onLogin={() => {
+              setAuthenticated(true);
+              history.push("/announcement");
             }}
-          >
-            <Switch>
-              <Route path="/announcement" exact>
-                <Announcement />
-              </Route>
-              <Route path="/announcement-details" exact>
-                <AnnouncementDetails />
-              </Route>
-              <Route path="/request" exact>
-                <Request />
-              </Route>
-              <Route path="/request/new-request" exact>
-                <NewRequest />
-              </Route>
-              <Route path="/payment" exact>
-                <Payment />
-              </Route>
-              <Route path="/profile" exact>
-                <Profile />
-              </Route>
-            </Switch>
-          </Content>
-        </Layout>
-      </Layout>
-    </Layout>
+          />
+        </Route>
+
+        <Route path="/register">
+          <Register />
+        </Route>
+
+        <PrivateRoute path="/announcement" authenticated={authenticated} exact>
+          <AppLayout>
+            <Announcement />
+          </AppLayout>
+        </PrivateRoute>
+
+        <PrivateRoute
+          path="/announcement-details"
+          authenticated={authenticated}
+          exact
+        >
+          <AppLayout>
+            <AnnouncementDetails />
+          </AppLayout>
+        </PrivateRoute>
+
+        <PrivateRoute path="/request" authenticated={authenticated} exact>
+          <AppLayout>
+            <Request />
+          </AppLayout>
+        </PrivateRoute>
+
+        <PrivateRoute
+          path="/request/new-request"
+          authenticated={authenticated}
+          exact
+        >
+          <AppLayout>
+            <NewRequest />
+          </AppLayout>
+        </PrivateRoute>
+
+        <PrivateRoute path="/payment" authenticated={authenticated} exact>
+          <AppLayout>
+            <Payment />
+          </AppLayout>
+        </PrivateRoute>
+
+        <PrivateRoute path="/profile" authenticated={authenticated} exact>
+          <AppLayout>
+            <Profile />
+          </AppLayout>
+        </PrivateRoute>
+      </Switch>
+    </div>
   );
 }
 

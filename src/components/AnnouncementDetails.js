@@ -11,9 +11,9 @@ const AnnouncementDetails = () => {
       <Card type="inner" title="Inner Card title">
         Inner Card content
       </Card>
-      <Card type="inner">
+      {/* <Card type="inner">
         <CommentSection />
-      </Card>
+      </Card> */}
     </Card>
   );
 };

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./Profile.js";
 
+import { CalendarOutlined } from "@ant-design/icons";
 const { Text } = Typography;
 
 const AnnouncementContent = (props) => {
@@ -13,7 +14,8 @@ const AnnouncementContent = (props) => {
         <Text strong>{props.content}</Text>
       </h1>
       <h5>
-        <Text type="secondary">Date posted: {date}</Text>
+        <CalendarOutlined />
+        <Text type="secondary"> {date}</Text>
       </h5>
     </Space>
   );
@@ -26,7 +28,6 @@ const Announcement = () => {
         type="inner"
         title="Title 1"
         extra={<Link to="/announcement-details">More</Link>}
-        // extra={<a href="#">More</a>}
       >
         <AnnouncementContent content="Content here..." />
       </Card>
