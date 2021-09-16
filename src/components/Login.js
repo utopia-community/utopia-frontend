@@ -25,7 +25,7 @@ const Login = (props) => {
 
   const validateLogin = (username, password) => {
     if ((username = "AAAA" && password == "BBBB")) {
-      props.onSuccess();
+      props.onLogin();
     }
   };
 
