@@ -10,13 +10,12 @@ const AnnouncementContent = (props) => {
   const date = new Date().toISOString().slice(0, 10);
   return (
     <Space direction="vertical">
-      <h1>
-        <Text strong>{props.content}</Text>
-      </h1>
       <h5>
         <CalendarOutlined />
         <Text type="secondary"> {date}</Text>
       </h5>
+
+      <Text>{props.content}</Text>
     </Space>
   );
 };
