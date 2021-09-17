@@ -1,13 +1,40 @@
-import { useHistory } from "react-router-dom";
+import * as React from "react";
+import { useState } from "react";
+import {
+  Button,
+  Card,
+} from "antd";
+import "./NewRequest.js";
+import NewRequest from "./NewRequest.js";
 
 const Request = () => {
-  const history = useHistory();
+  const [visible, setVisible] = useState(false);
+
+  const handleCloseModal = () => setVisible(false);
 
   return (
-    <div>
-      My Request!{" "}
-      <a onClick={() => history.push("/request/new-request")}>Click me!</a>
-    </div>
+    <>
+      <Card
+        title="My Request"
+        extra={
+          <Button
+            shape="round"
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
+            New Request
+          </Button>
+        }
+      />
+      {visible && (
+        <NewRequest
+          displayModal={visible}
+          onSuccess={handleCloseModal}
+          onCancel={handleCloseModal}
+        />
+      )}
+    </>
   );
 };
 
