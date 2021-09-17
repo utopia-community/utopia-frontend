@@ -1,7 +1,8 @@
 import { Form, Input, Button, Checkbox, Alert } from "antd";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-
+import { makeStyles } from '@mui/styles';
+import background from "./Background.png";
 let username;
 let password;
 
@@ -34,8 +35,28 @@ const Login = (props) => {
     }
   };
 
+  const useStyles = makeStyles({
+    root: {
+      transform: "scale(1.5)",
+      borderWidth: 100,
+      shadowColor: 'red',
+      shadowOffset: { height: 50, width: 20 },
+      shadowOpacity: 0.9,
+      shadowRadius: 0.9,
+    },
+  });
+
+  const backgroundStyles = {
+    backgroundImage: `url(${background})` ,
+    backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      width: '100vw',
+      height: '100vh' 
+  }
+
   return (
-    <>
+    <div style={backgroundStyles}>
       {failLoginMessage && (
         <Alert
           message="Your User ID or PIN is incorrect"
@@ -46,6 +67,8 @@ const Login = (props) => {
         />
       )}
       <Form
+        //style={{margin: "px"}}
+        style={{padding: "200px"}}
         name="basic"
         labelCol={{
           span: 8,
@@ -61,6 +84,8 @@ const Login = (props) => {
         autoComplete="off"
       >
         <Form.Item
+          // style="font-family: sans-serif,font-size:5vw"
+          className={useStyles().root}
           label="Username"
           name="username"
           rules={[
@@ -74,6 +99,7 @@ const Login = (props) => {
         </Form.Item>
 
         <Form.Item
+          className={useStyles().root}
           label="Password"
           name="password"
           rules={[
@@ -87,6 +113,7 @@ const Login = (props) => {
         </Form.Item>
 
         <Form.Item
+          className={useStyles().root}
           name="remember"
           valuePropName="checked"
           wrapperCol={{
@@ -98,6 +125,7 @@ const Login = (props) => {
         </Form.Item>
 
         <Form.Item
+          className={useStyles().root}
           wrapperCol={{
             offset: 8,
             span: 16,
@@ -115,27 +143,16 @@ const Login = (props) => {
         </Form.Item>
 
         <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
+          className={useStyles().root}
+          label="New User"
         >
           <Button onClick={() => history.push("/register")}>
             Register Now
           </Button>
         </Form.Item>
-
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          {" "}
-          <div type="text" id="output"></div>
-        </Form.Item>
       </Form>
-    </>
+    </div>
   );
 };
 export default Login;
+

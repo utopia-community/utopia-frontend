@@ -1,5 +1,6 @@
 import { Form, Input, InputNumber, Button } from "antd";
-import Login from "./Login";
+import background from "./Background.png";
+import { makeStyles } from '@mui/styles';
 
 const Register = () => {
   const layout = {
@@ -27,14 +28,42 @@ const Register = () => {
     console.log(values);
   };
 
+  const backgroundStyles = {
+
+    backgroundImage: `url(${background})` ,
+    backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      width: '100vw',
+      height: '100vh'
+    
+  }
+
+  const useStyles = makeStyles({
+    root: {
+      
+      //margin: "100px",
+      //padding: "100px",
+      transform: "scale(1.5)",
+      borderWidth: 100,
+      shadowColor: 'red',
+      shadowOffset: { height: 50, width: 20 },
+      shadowOpacity: 0.9,
+      shadowRadius: 0.9,
+    },
+  });
+
   return (
-    <Form
+    <div style={backgroundStyles}>
+      <Form
+      style={{padding: "200px"}}
       {...layout}
       name="nest-messages"
       onFinish={onFinish}
       validateMessages={validateMessages}
     >
       <Form.Item
+        className={useStyles().root}
         name={["user", "firstName"]}
         label="First Name"
         rules={[
@@ -47,6 +76,7 @@ const Register = () => {
         <Input />
       </Form.Item>
       <Form.Item
+        className={useStyles().root}
         name={["user", "lastName"]}
         label="Last Name"
         rules={[
@@ -62,6 +92,7 @@ const Register = () => {
       </Form.Item>
 
       <Form.Item
+        className={useStyles().root}
         name={["user", "username"]}
         label="Username"
         rules={[
@@ -74,6 +105,7 @@ const Register = () => {
       </Form.Item>
 
       <Form.Item
+        className={useStyles().root}
         name={["user", "password"]}
         label="Password"
         rules={[
@@ -86,6 +118,7 @@ const Register = () => {
       </Form.Item>
 
       <Form.Item
+        className={useStyles().root}
         name={["user", "address"]}
         label="Your Address"
         rules={[
@@ -97,19 +130,14 @@ const Register = () => {
         <Input />
       </Form.Item>
 
-      {/* <Form.Item name={['user', 'website']} label="Website">
-            <Input />
-          </Form.Item>
-          <Form.Item name={['user', 'introduction']} label="Introduction">
-            <Input.TextArea />
-          </Form.Item> */}
-
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }} className={useStyles().root}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
       </Form.Item>
     </Form>
+    </div>
+    
   );
 };
 

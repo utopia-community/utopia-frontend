@@ -17,6 +17,11 @@ const { Header, Content, Sider } = Layout;
 
 const AppLayout = ({ children }) => {
   const history = useHistory();
+
+  const onLogout = (e) => {
+    console.log("Log out");
+  };
+  
   return (
     <Layout>
       <Header className="header">
@@ -46,7 +51,10 @@ const AppLayout = ({ children }) => {
             }}
           >
             <Space>
-              <Button type="default" size="middle">
+              <Button type="default" size="middle" onClick={() => {
+                history.push("/login");
+                onLogout();
+              }} >
                 Logout
               </Button>
             </Space>
