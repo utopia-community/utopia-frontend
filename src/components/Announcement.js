@@ -1,24 +1,47 @@
-import { Card } from 'antd';
+import { Card, Typography, Space } from "antd";
+import { Link } from "react-router-dom";
 
 import "./Profile.js";
 
+import { CalendarOutlined } from "@ant-design/icons";
+const { Text } = Typography;
 
-const Annoucement = () => {  
+const AnnouncementContent = (props) => {
+  const date = new Date().toISOString().slice(0, 10);
+  return (
+    <Space direction="vertical">
+      <h1>
+        <Text strong>{props.content}</Text>
+      </h1>
+      <h5>
+        <CalendarOutlined />
+        <Text type="secondary"> {date}</Text>
+      </h5>
+    </Space>
+  );
+};
+
+const Announcement = () => {
   return (
     <Card title="Announcement">
-      <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
-        Inner Card content
+      <Card
+        type="inner"
+        title="Title 1"
+        extra={<Link to="/announcement-details">More</Link>}
+      >
+        <AnnouncementContent content="Content here..." />
       </Card>
+
       <Card
         style={{ marginTop: 16 }}
         type="inner"
-        title="Inner Card title"
-        extra={<a href="#">More</a>}
+        title="Title 2"
+        extra={<Link to="/announcement-details">More</Link>}
       >
-        Inner Card content
+        <AnnouncementContent content="Content here..." />
       </Card>
     </Card>
   );
 };
 
-export default Annoucement;
+export default Announcement;
