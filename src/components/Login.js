@@ -34,6 +34,18 @@ const Login = (props) => {
     }
   };
 
+  const backgroundStyles = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundImage: `url(${background})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    width: "100vw",
+    height: "100vh",
+  };
+
   const useStyles = makeStyles({
     root: {
       transform: "scale(1.0)",
@@ -45,30 +57,19 @@ const Login = (props) => {
     },
   });
 
-  const backgroundStyles = {
-    backgroundImage: `url(${background})`,
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    width: "100vw",
-    height: "100vh",
-  };
-
   return (
     <div style={backgroundStyles}>
-      {failLoginMessage && (
-        <Alert
-          message="Your User ID or PIN is incorrect"
-          description="Please try again. For new user, please register a new account before proceeding to login."
-          type="error"
-          showIcon
-          closable
-        />
-      )}
-      <Card>
+      <Card title="Login in to Utopia" style={{ width: "640px" }}>
+        {failLoginMessage && (
+          <Alert
+            message="Your User ID or password is incorrect"
+            description="Please try again. For new user, please register a new account before proceeding to login."
+            type="error"
+            showIcon
+            closable
+          />
+        )}
         <Form
-          //style={{margin: "px"}}
-          style={{ padding: "200px" }}
           name="basic"
           labelCol={{
             span: 8,
@@ -142,7 +143,7 @@ const Login = (props) => {
             </Button>
           </Form.Item>
 
-          <Form.Item className={useStyles().root} label="New User">
+          <Form.Item className={useStyles().root} label="Create account">
             <Button onClick={() => history.push("/register")}>
               Register Now
             </Button>
