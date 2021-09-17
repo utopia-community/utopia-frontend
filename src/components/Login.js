@@ -1,13 +1,12 @@
-import { Form, Input, Button, Checkbox, Alert } from "antd";
+import { Form, Input, Button, Checkbox, Alert, Card } from "antd";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from '@mui/styles';
-import background from "./Background.png";
+import { makeStyles } from "@mui/styles";
+import background from "./house_background.jpg";
 let username;
 let password;
 
 const Login = (props) => {
-  let failLogin = false;
   const history = useHistory();
   const [failLoginMessage, getFailLoginMessage] = useState(false);
 
@@ -37,9 +36,9 @@ const Login = (props) => {
 
   const useStyles = makeStyles({
     root: {
-      transform: "scale(1.5)",
+      transform: "scale(1.0)",
       borderWidth: 100,
-      shadowColor: 'red',
+      shadowColor: "red",
       shadowOffset: { height: 50, width: 20 },
       shadowOpacity: 0.9,
       shadowRadius: 0.9,
@@ -47,13 +46,13 @@ const Login = (props) => {
   });
 
   const backgroundStyles = {
-    backgroundImage: `url(${background})` ,
-    backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      width: '100vw',
-      height: '100vh' 
-  }
+    backgroundImage: `url(${background})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    width: "100vw",
+    height: "100vh",
+  };
 
   return (
     <div style={backgroundStyles}>
@@ -66,93 +65,91 @@ const Login = (props) => {
           closable
         />
       )}
-      <Form
-        //style={{margin: "px"}}
-        style={{padding: "200px"}}
-        name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 8,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          // style="font-family: sans-serif,font-size:5vw"
-          className={useStyles().root}
-          label="Username"
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-            },
-          ]}
-        >
-          <Input id="username" onChange={onInputName} />
-        </Form.Item>
-
-        <Form.Item
-          className={useStyles().root}
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}
-        >
-          <Input.Password id="password" onChange={onInputPassword} />
-        </Form.Item>
-
-        <Form.Item
-          className={useStyles().root}
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{
-            offset: 8,
-            span: 16,
+      <Card>
+        <Form
+          //style={{margin: "px"}}
+          style={{ padding: "200px" }}
+          name="basic"
+          labelCol={{
+            span: 8,
           }}
-        >
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <Form.Item
-          className={useStyles().root}
           wrapperCol={{
-            offset: 8,
-            span: 16,
+            span: 8,
           }}
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <Button
-            type="primary"
-            htmlType="submit"
-            onClick={() => {
-              validateLogin(username, password);
+          <Form.Item
+            // style="font-family: sans-serif,font-size:5vw"
+            className={useStyles().root}
+            label="Username"
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Please input your username!",
+              },
+            ]}
+          >
+            <Input id="username" onChange={onInputName} />
+          </Form.Item>
+
+          <Form.Item
+            className={useStyles().root}
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+          >
+            <Input.Password id="password" onChange={onInputPassword} />
+          </Form.Item>
+
+          <Form.Item
+            className={useStyles().root}
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{
+              offset: 8,
+              span: 16,
             }}
           >
-            Submit
-          </Button>
-        </Form.Item>
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
 
-        <Form.Item
-          className={useStyles().root}
-          label="New User"
-        >
-          <Button onClick={() => history.push("/register")}>
-            Register Now
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item
+            className={useStyles().root}
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={() => {
+                validateLogin(username, password);
+              }}
+            >
+              Submit
+            </Button>
+          </Form.Item>
+
+          <Form.Item className={useStyles().root} label="New User">
+            <Button onClick={() => history.push("/register")}>
+              Register Now
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   );
 };
 export default Login;
-

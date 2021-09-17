@@ -1,5 +1,5 @@
 import { Form, Input, InputNumber, Button } from "antd";
-import background from "./Background.png";
+import background from "./house_background.jpg";
 import { makeStyles } from '@mui/styles';
 
 const Register = () => {
