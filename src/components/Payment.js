@@ -1,14 +1,8 @@
-import {
-  Card,
-  Space,
-  Button,
-  Table,
-  Statistic,
-  Row,
-  Col,
-  Typography,
-} from "antd";
+import { Card, Space, Button, Table, Statistic, Row, Col } from "antd";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import "./Checkout.js";
+import Checkout from "./Checkout.js";
 
 const columns = [
   {
@@ -34,55 +28,59 @@ const data = [
   {
     key: "1",
     date: "2021/06/01",
-    details: "HOA fee (June)",
+    details: "HOA fee (June 2021)",
     amount: 120,
   },
   {
     key: "2",
     date: "2021/07/01",
-    details: "HOA fee (July)",
+    details: "HOA fee (July 2021)",
     amount: 120,
   },
   {
     key: "3",
     date: "2021/08/01",
-    details: "HOA fee (August)",
+    details: "HOA fee (August 2021)",
     amount: 120,
   },
   {
     key: "4",
     date: "2021/09/01",
-    details: "HOA fee (September)",
-    amount: 10,
+    details: "HOA fee (September 2021)",
+    amount: 120,
   },
 ];
 
 const Payment = () => {
-  const { Title } = Typography;
-  const history = useHistory();
-
+  const [displayCheckout, setDisplayCheckout] = useState(false);
+  console.log("rendering Payment");
   return (
-    <Row gutter={[32, 8]}>
-      <Col span={18}>
-        <Card title="Payment history">
-          <Table columns={columns} dataSource={data} />
-        </Card>
-      </Col>
+    <>
+      <Row gutter={[32, 8]}>
+        <Col span={18}>
+          <Card title="Payment history">
+            <Table columns={columns} dataSource={data} />
+          </Card>
+        </Col>
 
-      <Col>
-        <Card>
-          <Space direction="vertical">
-            <Statistic title="Balance outstanding" value={"$ 100"} />
-            <Button
-              onClick={() => history.push("/payment/checkout")}
-              type="primary"
-            >
-              Pay now
-            </Button>
-          </Space>
-        </Card>
-      </Col>
-    </Row>
+        <Col>
+          <Card>
+            <Space direction="vertical">
+              <Statistic title="Balance outstanding" value={"$ 120"} />
+              <Button onClick={() => setDisplayCheckout(true)} type="primary">
+                Pay now
+              </Button>
+            </Space>
+          </Card>
+        </Col>
+      </Row>
+
+      <Checkout
+        displayModal={displayCheckout}
+        onSuccess={() => setDisplayCheckout(false)}
+        onCancel={() => setDisplayCheckout(false)}
+      />
+    </>
   );
 };
 

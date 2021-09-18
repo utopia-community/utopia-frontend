@@ -1,4 +1,6 @@
-import { Form, Input, InputNumber, Button, Card } from "antd";
+import { useState } from "react";
+
+import { Form, Input, Modal, Button, Card } from "antd";
 
 const layout = {
   labelCol: {
@@ -20,17 +22,34 @@ const validateMessages = {
   },
 };
 
-const Checkout = () => {
+const Checkout = (props) => {
+  const [submitting, setSubmitting] = useState(false);
+
   const onFinish = (values) => {
     console.log(values);
   };
 
   return (
-    <Card title="Payment details">
+    <Modal
+      title="Enter payment details"
+      visible={props.displayModal}
+      onCancel={props.onCancel}
+      okText="Pay"
+      okButtonProps={{
+        loading: submitting,
+      }}
+      onOk={() => {
+        setSubmitting(true);
+        setTimeout(() => {
+          setSubmitting(false);
+          props.onSuccess();
+        }, 1000);
+      }}
+    >
       <Form
         {...layout}
         name="nest-messages"
-        onFinish={onFinish}
+        // onFinish={onFinish}
         validateMessages={validateMessages}
       >
         <Form.Item
@@ -45,19 +64,36 @@ const Checkout = () => {
           <Input placeholder="John Smith" />
         </Form.Item>
 
-        <Form.Item
-          name={["card", "card"]}
-          label="Card information"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input placeholder="1234 1234 1234 1234" />
+        <Form.Item label="Card information">
+          <Form.Item
+            name={["card", "number"]}
+            noStyle
+            rules={[{ required: true, message: "Please enter card number." }]}
+          >
+            <Input placeholder="1234 1234 1234 1234" />
+          </Form.Item>
           <Input.Group compact>
-            <Input style={{ width: "50%" }} placeholder="MM / YY" />
-            <Input style={{ width: "50%" }} placeholder="CVV" />
+            <Form.Item
+              name={["card", "expiry"]}
+              noStyle
+              rules={[
+                { required: true, message: "Please enter card expiry date." },
+              ]}
+            >
+              <Input style={{ width: "50%" }} placeholder="MM / YY" />
+            </Form.Item>
+            <Form.Item
+              name={["card", "cvv"]}
+              noStyle
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter card security code.",
+                },
+              ]}
+            >
+              <Input style={{ width: "50%" }} placeholder="CVV" />
+            </Form.Item>
           </Input.Group>
         </Form.Item>
 
@@ -70,27 +106,10 @@ const Checkout = () => {
             },
           ]}
         >
-                    <Input placeholder="Lombard St, San Francisco, CA 94133" />
-        </Form.Item>
-
-        {/* <Form.Item
-          name={["user", "email"]}
-          label="Email"
-          rules={[
-            {
-              type: "email",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item> */}
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button type="primary" htmlType="submit">
-            Pay
-          </Button>
+          <Input placeholder="Lombard St, San Francisco, CA 94133" />
         </Form.Item>
       </Form>
-    </Card>
+    </Modal>
   );
 };
 

@@ -96,7 +96,7 @@ function App() {
           </AppLayout>
         </PrivateRoute>
 
-        <PrivateRoute
+        {/* <PrivateRoute
           path="/request/new-request"
           authenticated={authenticated}
           exact
@@ -104,7 +104,7 @@ function App() {
           <AppLayout>
             <NewRequest />
           </AppLayout>
-        </PrivateRoute>
+        </PrivateRoute> */}
 
         <PrivateRoute path="/payment" authenticated={authenticated} exact>
           <AppLayout>

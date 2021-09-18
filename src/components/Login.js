@@ -3,12 +3,12 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import background from "./house_background.jpg";
+import { message} from 'antd';
 let username;
 let password;
 
 const Login = (props) => {
   const history = useHistory();
-  const [failLoginMessage, getFailLoginMessage] = useState(false);
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -30,7 +30,7 @@ const Login = (props) => {
     if (username === "AAAA" && password === "BBBB") {
       props.onLogin();
     } else {
-      getFailLoginMessage(true);
+      unsuccessfulLogin();
     }
   };
 
@@ -57,18 +57,13 @@ const Login = (props) => {
     },
   });
 
+  const unsuccessfulLogin = () => {
+    message.error('Your user id or password is incorrect. Please try again.');
+  };
+
   return (
     <div style={backgroundStyles}>
-      <Card title="Login in to Utopia" style={{ width: "640px" }}>
-        {failLoginMessage && (
-          <Alert
-            message="Your User ID or password is incorrect"
-            description="Please try again. For new user, please register a new account before proceeding to login."
-            type="error"
-            showIcon
-            closable
-          />
-        )}
+      <Card title="Login to Utopia" style={{ width: "640px" }}>
         <Form
           name="basic"
           labelCol={{
@@ -85,7 +80,6 @@ const Login = (props) => {
           autoComplete="off"
         >
           <Form.Item
-            // style="font-family: sans-serif,font-size:5vw"
             className={useStyles().root}
             label="Username"
             name="username"
