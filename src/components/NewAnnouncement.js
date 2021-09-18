@@ -11,7 +11,7 @@ import {
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
-class NewRequest extends React.Component {
+class NewAnnouncement extends React.Component {
   // state = {
   //   displayModal: false
   // }
@@ -71,7 +71,7 @@ class NewRequest extends React.Component {
         {/* <Button shape="round" onClick={this.newOnClick} style={{ marginRight: '20px' }}>
         New Request</Button> */}
         <Modal
-          title="New Request"
+          title="New Announcement"
           visible={this.props.displayModal}
           // visible={this.state.displayModal}
           onCancel={this.handleCancel}
@@ -93,9 +93,9 @@ class NewRequest extends React.Component {
               rules={[{ required: true, message: "Please select a category." }]}
             >
               <Select>
-                <Option value="book-facilities">Book common facilities</Option>
-                <Option value="request-repair">Request for repair</Option>
-                <Option value="lodge-complaint">Lodge a complaint</Option>
+                <Option value="category1">Category 1</Option>
+                <Option value="category2">Category 2</Option>
+                <Option value="category3">Category 3</Option>
               </Select>
             </Form.Item>
 
@@ -133,4 +133,4 @@ class NewRequest extends React.Component {
   };
 }
 
-export default NewRequest;
+export default NewAnnouncement;

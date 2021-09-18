@@ -1,5 +1,11 @@
-import { Card, Typography, Space } from "antd";
+import { Card, Typography, Space, Button } from "antd";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+
+import "./NewAnnouncement.js";
+import NewAnnouncement from "./NewAnnouncement.js";
+
+import { getAnnouncements } from "../api";
 
 import "./Profile.js";
 
@@ -21,8 +27,34 @@ const AnnouncementContent = (props) => {
 };
 
 const Announcement = () => {
+  const [visible, setVisible] = useState(false);
+
+  const handleCloseModal = () => {
+    setVisible(false);
+  }
+
   return (
-    <Card title="Announcement">
+    <>
+    {visible && (
+      <NewAnnouncement
+        displayModal={visible}
+        onSuccess={handleCloseModal}
+        onCancel={handleCloseModal}
+      />
+    )}
+    <Card
+      title="Announcement"
+      extra={
+        <Button
+          shape="round"
+          onClick={() => {
+            setVisible(true);
+          }}
+        >
+          New Announcement
+        </Button>
+      }
+    >
       <Card
         type="inner"
         title="Title 1"
@@ -40,6 +72,7 @@ const Announcement = () => {
         <AnnouncementContent content="Content here..." />
       </Card>
     </Card>
+    </>
   );
 };
 
