@@ -1,2 +1,7 @@
 @import '~antd/dist/antd.css';
 
+div.page-top-title {
+    font-size: 25px;
+    color: dimgray;
+    padding-bottom: 25px;
+}
