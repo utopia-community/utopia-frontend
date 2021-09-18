@@ -1,8 +1,11 @@
 import { Form, Input, InputNumber, Button } from "antd";
+import { useHistory } from "react-router-dom";
 import background from "./Background.png";
 import { makeStyles } from '@mui/styles';
+import { message} from 'antd';
 
 const Register = () => {
+  const history = useHistory();
   const layout = {
     labelCol: {
       span: 8,
@@ -10,6 +13,19 @@ const Register = () => {
     wrapperCol: {
       span: 8,
     },
+  };
+
+  const registerInfo = () => {
+    message.info({
+      content: 'Register Successfully!',
+      duration: 7,
+      className: 'custom-class',
+      style: {
+        marginTop: '10vh',
+        fontSize: '20px',
+      },
+    });
+    history.push("/login");
   };
   /* eslint-disable no-template-curly-in-string */
 
@@ -131,7 +147,7 @@ const Register = () => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }} className={useStyles().root}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" onClick={registerInfo}>
           Submit
         </Button>
       </Form.Item>
