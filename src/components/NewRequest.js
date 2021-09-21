@@ -73,7 +73,6 @@ class NewRequest extends React.Component {
         <Modal
           title="New Request"
           visible={this.props.displayModal}
-          // visible={this.state.displayModal}
           onCancel={this.handleCancel}
           footer={null}
           destroyOnClose={true}
@@ -100,7 +99,7 @@ class NewRequest extends React.Component {
             </Form.Item>
 
             <Form.Item
-              name="description"
+              name="content"
               label="Description"
               rules={[
                 { required: true, message: "Please input your description." },

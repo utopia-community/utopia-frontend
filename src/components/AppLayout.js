@@ -1,16 +1,4 @@
 import { useHistory } from "react-router-dom";
-import "./Announcement.js";
-import "./Profile.js";
-import "./Login.js";
-import "./Request.js";
-import "./NewRequest.js";
-import "./AnnouncementDetails.js";
-import {
-  ToolOutlined,
-  ContainerOutlined,
-  DollarCircleOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import { Layout, Button, Menu, Space } from "antd";
 
 const { Header, Content, Sider } = Layout;
@@ -64,44 +52,7 @@ const AppLayout = ({ children }) => {
 
       <Layout>
         <Sider theme="light" width={200} className="site-layout-background">
-          <Menu defaultSelectedKeys={["1"]} mode="inline" theme="light">
-            <Menu.Item
-              key="1"
-              icon={<ContainerOutlined />}
-              onClick={() => {
-                history.push("/announcement");
-              }}
-            >
-              Announcement
-            </Menu.Item>
-            <Menu.Item
-              key="2"
-              icon={<ToolOutlined />}
-              onClick={() => {
-                history.push("/request");
-              }}
-            >
-              Request
-            </Menu.Item>
-            <Menu.Item
-              key="3"
-              icon={<DollarCircleOutlined />}
-              onClick={() => {
-                history.push("/payment");
-              }}
-            >
-              Payment
-            </Menu.Item>
-            <Menu.Item
-              key="4"
-              icon={<UserOutlined />}
-              onClick={() => {
-                history.push("/profile");
-              }}
-            >
-              Profile
-            </Menu.Item>
-          </Menu>
+          <div>User profile details here...</div>
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
           <Content

@@ -7,39 +7,19 @@ import {
   useHistory,
 } from "react-router-dom";
 import "./App.css";
-import "./Login.js";
 
 import Announcement from "./Announcement.js";
-import AnnouncementDetails from "./AnnouncementDetails.js";
-import Profile from "./Profile.js";
+import MyProfile from "./MyProfile.js";
 import Register from "./Register.js";
 import Payment from "./Payment.js";
 import Request from "./Request.js";
 import NewRequest from "./NewRequest.js";
 import Login from "./Login.js";
 import AppLayout from "./AppLayout.js";
+import HomepageLayout from "./HomepageLayout.js";
+import NewAnnouncement from "./NewAnnouncement.js";
 
 const PrivateRoute = ({ children, authenticated, ...rest }) => {
-  // return (
-  //   <Route
-  //     {...rest}
-  //     // {...{path: '/protected'}}
-  //     // path='/protected'
-  //     render={({ location }) =>
-  //       authenticated ? (
-  //         children
-  //       ) : (
-  //         <Redirect
-  //           to={{
-  //             pathname: "/login",
-  //             state: { from: location },
-  //           }}
-  //         />
-  //       )
-  //     }
-  //   />
-  // );
-
   const location = useLocation();
   if (authenticated) {
     return <Route {...rest}>{children}</Route>;
@@ -75,19 +55,19 @@ function App() {
         </Route>
 
         <PrivateRoute path="/announcement" authenticated={authenticated} exact>
-          <AppLayout>
+          <HomepageLayout>
             <Announcement />
-          </AppLayout>
+          </HomepageLayout>
         </PrivateRoute>
 
         <PrivateRoute
-          path="/announcement-details"
+          path="/new-announcement"
           authenticated={authenticated}
           exact
         >
-          <AppLayout>
-            <AnnouncementDetails />
-          </AppLayout>
+          <HomepageLayout>
+            <NewAnnouncement />
+          </HomepageLayout>
         </PrivateRoute>
 
         <PrivateRoute path="/request" authenticated={authenticated} exact>
@@ -96,15 +76,11 @@ function App() {
           </AppLayout>
         </PrivateRoute>
 
-        {/* <PrivateRoute
-          path="/request/new-request"
-          authenticated={authenticated}
-          exact
-        >
+        <PrivateRoute path="/new_request" authenticated={authenticated} exact>
           <AppLayout>
             <NewRequest />
           </AppLayout>
-        </PrivateRoute> */}
+        </PrivateRoute>
 
         <PrivateRoute path="/payment" authenticated={authenticated} exact>
           <AppLayout>
@@ -114,7 +90,7 @@ function App() {
 
         <PrivateRoute path="/profile" authenticated={authenticated} exact>
           <AppLayout>
-            <Profile />
+            <MyProfile />
           </AppLayout>
         </PrivateRoute>
       </Switch>
