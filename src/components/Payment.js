@@ -1,6 +1,5 @@
 import { Card, Space, Button, Table, Statistic, Row, Col } from "antd";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
 import "./Checkout.js";
 import Checkout from "./Checkout.js";
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Form, Input, Modal, Button, Card } from "antd";
+import { Form, Input, Modal } from "antd";
 
 const layout = {
   labelCol: {
@@ -49,7 +49,7 @@ const Checkout = (props) => {
       <Form
         {...layout}
         name="nest-messages"
-        // onFinish={onFinish}
+        onFinish={onFinish}
         validateMessages={validateMessages}
       >
         <Form.Item

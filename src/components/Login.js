@@ -1,9 +1,9 @@
-import { Form, Input, Button, Checkbox, Alert, Card } from "antd";
+import { Form, Input, Button, Checkbox, message, Card } from "antd";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import background from "./house_background.jpg";
-import { message} from 'antd';
+
 let username;
 let password;
 
