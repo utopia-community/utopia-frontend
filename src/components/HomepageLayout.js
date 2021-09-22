@@ -55,7 +55,7 @@ const HomepageLayout = ({ children }) => {
                 type="default"
                 size="middle"
                 onClick={() => {
-                  history.push("/new-announcement");
+                  history.push("/announcements/new-announcement");
                 }}
               >
                 New announcement
@@ -86,7 +86,21 @@ const HomepageLayout = ({ children }) => {
         </div>
       </Header>
 
-      <Content style={{ padding: "50px 50px" }}>{children}</Content>
+      <div style={{ 
+        background: 'rgb(2,0,36)',
+        background: 'radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)',
+        padding: "50px" }}>
+        Announcements
+      </div>
+
+      <Content style={{ padding: "50px 100px" }}>{children}</Content>
+
+      <div style={{ 
+        background: 'rgb(2,0,36)',
+        background: 'radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)',
+        padding: "25px" }}>
+        About us...
+      </div>
 
       <Footer style={{ textAlign: "center" }}>
         <div>

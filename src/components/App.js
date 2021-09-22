@@ -45,7 +45,7 @@ function App() {
           <Login
             onLogin={() => {
               setAuthenticated(true);
-              history.push("/announcement");
+              history.push("/announcements");
             }}
           />
         </Route>
@@ -54,14 +54,14 @@ function App() {
           <Register />
         </Route>
 
-        <PrivateRoute path="/announcement" authenticated={authenticated} exact>
+        <PrivateRoute path="/announcements" authenticated={authenticated} exact>
           <HomepageLayout>
             <Announcement />
           </HomepageLayout>
         </PrivateRoute>
 
         <PrivateRoute
-          path="/new-announcement"
+          path="/announcements/new-announcement"
           authenticated={authenticated}
           exact
         >

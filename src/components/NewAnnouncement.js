@@ -13,7 +13,7 @@ const NewAnnouncement = () => {
       category: values.category,
       content: values.content,
     });
-    history.push("/announcement");
+    history.push("/announcements");
     console.log("Success:", values);
   };
 
