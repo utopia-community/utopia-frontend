@@ -8,7 +8,7 @@ export const getAnnouncements = () => {
 };
 
 export const newAnnouncement = (data) => {
-  const newAnnoucementUrl = "/new-announcement";
+  const newAnnoucementUrl = "/announcements/new-announcement";
 
   return fetch(newAnnoucementUrl, {
     method: "POST",
