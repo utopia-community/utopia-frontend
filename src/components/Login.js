@@ -1,44 +1,25 @@
 import { Form, Input, Button, Checkbox, message, Card } from "antd";
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import background from "./house_background.jpg";
 import { login } from "../utils";
-let username;
-let password;
 
-const Login = props => {
+const Login = (props) => {
   const history = useHistory();
 
-  const onFinish = data => {
+  const onFinish = (data) => {
     login(data)
       .then(() => {
         console.log("successfully logged in");
-        this.props.isLoggedIn(true);
+        props.onLogin();
       })
-      .catch(err => {
+      .catch((err) => {
         message.error(err.message);
       });
   };
 
-  const onFinishFailed = errorInfo => {
+  const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
-  };
-
-  const onInputName = e => {
-    username = e.target.value;
-  };
-
-  const onInputPassword = e => {
-    password = e.target.value;
-  };
-
-  const validateLogin = (username, password) => {
-    if (username === "AAAA" && password === "BBBB") {
-      props.onLogin();
-    } else {
-      unsuccessfulLogin();
-    }
   };
 
   const backgroundStyles = {
@@ -63,10 +44,6 @@ const Login = props => {
       shadowRadius: 0.9,
     },
   });
-
-  const unsuccessfulLogin = () => {
-    message.error("Your user id or password is incorrect. Please try again.");
-  };
 
   return (
     <div style={backgroundStyles}>
@@ -97,7 +74,7 @@ const Login = props => {
               },
             ]}
           >
-            <Input id="username" onChange={onInputName} />
+            <Input id="username" />
           </Form.Item>
 
           <Form.Item
@@ -111,7 +88,7 @@ const Login = props => {
               },
             ]}
           >
-            <Input.Password id="password" onChange={onInputPassword} />
+            <Input.Password id="password" />
           </Form.Item>
 
           <Form.Item
@@ -133,13 +110,7 @@ const Login = props => {
               span: 16,
             }}
           >
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={() => {
-                validateLogin(username, password);
-              }}
-            >
+            <Button type="primary" htmlType="submit">
               Login
             </Button>
           </Form.Item>
@@ -154,82 +125,5 @@ const Login = props => {
     </div>
   );
 };
+
 export default Login;
-
-//  render() {
-//   if (this.props.isLoggedIn) {
-//     return <GoTo target='/'/>;
-// }
-
-// return (
-//     <>
-//         <div>
-//             <br/><br/><br/><br/>
-//             <Row>
-//                 <Col span={6} offset={9} className="App-login">
-//                     <h1 style={{fontSize: 24}}>login to your account</h1>
-//                 </Col>
-//             </Row>
-
-//             <Row>
-//                 <Col span={24}>
-
-//                     <br/>
-//                     <Form
-//                         {...layout}
-//                         name="basic"
-//                         onFinish={this.onFinish}
-//                         initialValues={{
-//                             remember: true,
-//                         }}
-//                     >
-//                         <Form.Item {...layout}
-//                                    label="Username"
-//                                    name="username"
-//                                    rules={[
-//                                        {
-//                                            required: true,
-//                                            message: 'Please input your username!',
-//                                        },
-//                                    ]}
-//                         >
-//                             <Input prefix={<UserOutlined/>} placeholder="Username"/>
-//                         </Form.Item>
-
-//                         <Form.Item {...layout}
-//                                    label="Password"
-//                                    name="password"
-//                                    rules={[
-//                                        {
-//                                            required: true,
-//                                            message: 'Please input your password!',
-//                                        },
-//                                    ]}
-//                         >
-//                             <Input.Password prefix={<LockOutlined/>} placeholder="Password"/>
-//                         </Form.Item>
-
-//                         <Form.Item {...tailLayout}
-//                                    name="remember"
-//                                    valuePropName="checked">
-//                             <Checkbox>Remember me</Checkbox>
-//                         </Form.Item>
-
-//                         <Form.Item {...tailLayout}>
-//                             <Button type="primary" htmlType="submit">
-//                                 Login
-//                             </Button>
-//                         </Form.Item>
-//                     </Form>
-//                 </Col>
-//             </Row>
-
-//             <br/><br/><br/><br/><br/>
-
-//         </div>
-//     </>
-// );
-// }
-// }
-
-// export default Login;

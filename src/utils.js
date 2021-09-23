@@ -7,7 +7,7 @@ const SERVER_ORIGIN = "http://localhost:8080";
 
 const loginUrl = `${SERVER_ORIGIN}/login`;
 // SZ: the content type should be x-www-form-urlencoded.
-export const login = credential => {
+export const login = (credential) => {
   const { username, password } = credential;
   var urlencoded = new URLSearchParams();
   urlencoded.append("username", username);
@@ -20,24 +20,15 @@ export const login = credential => {
     body: urlencoded,
     redirect: "follow",
     credentials: "include",
-  })
-    .then(response => {
-      if (response.status !== 200) {
-        throw Error("Fail to log in");
-      }
-      // chaining fetch
-      getAccountInfo().then(data => {
-        message.success(
-          `Welcome back, ${data.firstName + " " + data.lastName}`
-        );
-      });
-    })
-    .catch(err => {
-      console.error(
-        err,
-        "If you see a error here, contact mayaowei.study@gmail.com immediately."
-      );
+  }).then((response) => {
+    if (response.status !== 200) {
+      throw Error("Fail to log in");
+    }
+    // chaining fetch
+    getAccountInfo().then((data) => {
+      message.success(`Welcome back, ${data.firstName + " " + data.lastName}`);
     });
+  });
 };
 
 const getAccountInfoUrl = `${SERVER_ORIGIN}/accountinfo`;
@@ -47,7 +38,7 @@ export const getAccountInfo = () => {
     headers: { "Content-Type": "application/json" },
     redirect: "follow",
     credentials: "include",
-  }).then(response => {
+  }).then((response) => {
     if (response.status !== 200) {
       throw Error("Fail to get account information");
     }
@@ -65,16 +56,16 @@ export const getAccountInfo = () => {
 
 const registerUrl = `${SERVER_ORIGIN}/register`;
 
-export const register = data => {
+export const register = (data) => {
   return fetch(registerUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then(response => {
+  }).then((response) => {
     if (response.status !== 201) {
-      // Ma: 201 created.
+      // 201 represents account is successfully created.
       throw Error("Fail to register");
     }
   });
@@ -82,11 +73,11 @@ export const register = data => {
 
 const logoutUrl = `${SERVER_ORIGIN}/logout`;
 
-export const logout = data => {
+export const logout = (data) => {
   return fetch(logoutUrl, {
     method: "GET",
     credentials: "include",
-  }).then(response => {
+  }).then((response) => {
     if (response.status !== 200) {
       throw Error("Fail to logout");
     }
@@ -95,7 +86,7 @@ export const logout = data => {
 
 //----------Announcement Related APIs------------------
 export const getAnnouncements = () => {
-  return fetch("/announcements").then(response => {
+  return fetch("/announcements").then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get announcements");
     }
@@ -103,7 +94,7 @@ export const getAnnouncements = () => {
   });
 };
 
-export const newAnnouncement = data => {
+export const newAnnouncement = (data) => {
   const newAnnoucementUrl = "/announcements/new-announcement";
 
   return fetch(newAnnoucementUrl, {
@@ -113,7 +104,7 @@ export const newAnnouncement = data => {
     },
     credentials: "include",
     body: JSON.stringify(data),
-  }).then(response => {
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to create new announcement");
     }
