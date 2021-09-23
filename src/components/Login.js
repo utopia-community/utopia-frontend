@@ -1,37 +1,25 @@
 import { Form, Input, Button, Checkbox, message, Card } from "antd";
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import background from "./house_background.jpg";
-
-let username;
-let password;
+import { login } from "../utils";
 
 const Login = (props) => {
   const history = useHistory();
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const onFinish = (data) => {
+    login(data)
+      .then(() => {
+        console.log("successfully logged in");
+        props.onLogin();
+      })
+      .catch((err) => {
+        message.error(err.message);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
-  };
-
-  const onInputName = (e) => {
-    username = e.target.value;
-  };
-
-  const onInputPassword = (e) => {
-    password = e.target.value;
-  };
-
-  const validateLogin = (username, password) => {
-    if (username === "AAAA" && password === "BBBB") {
-      props.onLogin();
-    } else {
-      unsuccessfulLogin();
-    }
   };
 
   const backgroundStyles = {
@@ -56,10 +44,6 @@ const Login = (props) => {
       shadowRadius: 0.9,
     },
   });
-
-  const unsuccessfulLogin = () => {
-    message.error('Your user id or password is incorrect. Please try again.');
-  };
 
   return (
     <div style={backgroundStyles}>
@@ -90,7 +74,7 @@ const Login = (props) => {
               },
             ]}
           >
-            <Input id="username" onChange={onInputName} />
+            <Input id="username" />
           </Form.Item>
 
           <Form.Item
@@ -104,7 +88,7 @@ const Login = (props) => {
               },
             ]}
           >
-            <Input.Password id="password" onChange={onInputPassword} />
+            <Input.Password id="password" />
           </Form.Item>
 
           <Form.Item
@@ -126,14 +110,8 @@ const Login = (props) => {
               span: 16,
             }}
           >
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={() => {
-                validateLogin(username, password);
-              }}
-            >
-              Submit
+            <Button type="primary" htmlType="submit">
+              Login
             </Button>
           </Form.Item>
 
@@ -147,4 +125,5 @@ const Login = (props) => {
     </div>
   );
 };
+
 export default Login;

@@ -1,3 +1,90 @@
+import axios from "axios";
+import { message } from "antd";
+
+const SERVER_ORIGIN = "http://localhost:8080";
+
+//----------Login/Register Related APIs------------------
+
+const loginUrl = `${SERVER_ORIGIN}/login`;
+// SZ: the content type should be x-www-form-urlencoded.
+export const login = (credential) => {
+  const { username, password } = credential;
+  var urlencoded = new URLSearchParams();
+  urlencoded.append("username", username);
+  urlencoded.append("password", password);
+  return fetch(loginUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: urlencoded,
+    redirect: "follow",
+    credentials: "include",
+  }).then((response) => {
+    if (response.status !== 200) {
+      throw Error("Fail to log in");
+    }
+    // chaining fetch
+    getAccountInfo().then((data) => {
+      message.success(`Welcome back, ${data.firstName + " " + data.lastName}`);
+    });
+  });
+};
+
+const getAccountInfoUrl = `${SERVER_ORIGIN}/accountinfo`;
+export const getAccountInfo = () => {
+  return fetch(getAccountInfoUrl, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    redirect: "follow",
+    credentials: "include",
+  }).then((response) => {
+    if (response.status !== 200) {
+      throw Error("Fail to get account information");
+    }
+    console.log("got fetched data from backend");
+    console.log("fetched response is: ");
+    console.log(response);
+
+    var data = response.json();
+    if (data === null) {
+      message.warning("Please login");
+    }
+    return data;
+  });
+};
+
+const registerUrl = `${SERVER_ORIGIN}/register`;
+
+export const register = (data) => {
+  return fetch(registerUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then((response) => {
+    if (response.status !== 201) {
+      // 201 represents account is successfully created.
+      throw Error("Fail to register");
+    }
+  });
+};
+
+const logoutUrl = `${SERVER_ORIGIN}/logout`;
+
+export const logout = (data) => {
+  return fetch(logoutUrl, {
+    method: "GET",
+    credentials: "include",
+  }).then((response) => {
+    if (response.status !== 200) {
+      throw Error("Fail to logout");
+    }
+  });
+};
+
+//----------Announcement Related APIs------------------
 export const getAnnouncements = () => {
   return fetch("/announcements").then((response) => {
     if (response.status < 200 || response.status >= 300) {
@@ -23,3 +110,4 @@ export const newAnnouncement = (data) => {
     }
   });
 };
+// ----------Request Related APIs------------------

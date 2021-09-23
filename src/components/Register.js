@@ -1,8 +1,9 @@
-import { Form, Input,Button, Card } from "antd";
+import { Form, Input, Button, Card } from "antd";
 import background from "./house_background.jpg";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import { message} from 'antd';
+import { message } from "antd";
+import { register } from "../utils";
 
 const Register = () => {
   const history = useHistory();
@@ -18,11 +19,11 @@ const Register = () => {
 
   const registerInfo = () => {
     message.info({
-      content: 'Register Successfully!',
+      content: "Register Successfully!",
       duration: 5,
-      className: 'custom-class',
+      className: "custom-class",
       style: {
-        marginTop: '10vh',
+        marginTop: "10vh",
         // fontSize: '20px',
       },
     });

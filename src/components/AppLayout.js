@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
-import { Layout, Button, Menu, Space } from "antd";
+import { Layout, Button, Menu, Space, message } from "antd";
+import { logout } from "../utils";
 
 const { Header, Content, Sider } = Layout;
 
@@ -7,9 +8,16 @@ const AppLayout = ({ children }) => {
   const history = useHistory();
 
   const onLogout = (e) => {
-    console.log("Log out");
+    logout()
+      .then(() => {
+        message.success("Successfully logged out!");
+        console.log("Log out");
+      })
+      .catch((err) => {
+        message.error(err.message);
+      });
   };
-  
+
   return (
     <Layout>
       <Header className="header">
@@ -39,10 +47,14 @@ const AppLayout = ({ children }) => {
             }}
           >
             <Space>
-              <Button type="default" size="middle" onClick={() => {
-                history.push("/login");
-                onLogout();
-              }} >
+              <Button
+                type="default"
+                size="middle"
+                onClick={() => {
+                  history.push("/login");
+                  onLogout();
+                }}
+              >
                 Logout
               </Button>
             </Space>
