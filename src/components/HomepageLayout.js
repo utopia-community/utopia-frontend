@@ -86,26 +86,55 @@ const HomepageLayout = ({ children }) => {
         </div>
       </Header>
 
-      <div style={{ 
-        background: 'rgb(2,0,36)',
-        background: 'radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)',
-        padding: "50px" }}>
+      <div
+        style={{
+          background: "rgb(2,0,36)",
+          background:
+            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
+          padding: "50px",
+          textAlign: "center",
+          fontSize: "24px",
+          fontWeight: "bold",
+        }}
+      >
         Announcements
       </div>
 
       <Content style={{ padding: "50px 100px" }}>{children}</Content>
 
-      <div style={{ 
-        background: 'rgb(2,0,36)',
-        background: 'radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)',
-        padding: "25px" }}>
-        About us...
+      <div
+        style={{
+          background: "rgb(2,0,36)",
+          background:
+            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
+          padding: "24px",
+          textAlign: "center",
+          fontSize: "12px",
+        }}
+      >
+        <div>About us</div>
+        <div>
+          Utopia community features townhouses with spacious interiors,
+          light-filled rooms, modern finishes and the latest in smart home tech.
+        </div>
+        <div>
+          These are accompanied by a collection of outdoor spaces and
+          hospitality-focused amenities.
+        </div>
       </div>
 
-      <Footer style={{ textAlign: "center" }}>
+      <Footer
+        style={{
+          textAlign: "center",
+          fontSize: "12px",
+          color: "white",
+          padding: "12px",
+          background: "#041E42",
+        }}
+      >
         <div>
           3645 Haven Avenue Menlo Park, CA 94025 | contactus@utopia.com |
-          650-708-1455
+          650-708-1111
         </div>
         <div>©2020 Utopia Management, LLC</div>
       </Footer>
