@@ -1,5 +1,10 @@
 import { Card, message, Typography, Space, Col, Row } from "antd";
-import { SoundOutlined } from "@ant-design/icons";
+import {
+  ReadOutlined,
+  TeamOutlined,
+  ToolOutlined,
+  HomeOutlined,
+} from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { getAnnouncements } from "../utils";
 
@@ -17,6 +22,16 @@ const AnnouncementContent = (props) => {
   );
 };
 
+const getCategoryIcon = (category) => {
+  const categoryToIcon = {
+    category1: <HomeOutlined />,
+    category2: <TeamOutlined />,
+    category3: <ToolOutlined />,
+    category4: <ReadOutlined />,
+  };
+  return categoryToIcon[category] || <HomeOutlined />;
+};
+
 const Announcement = () => {
   const [announcements, setAnnouncements] = useState([]);
 
@@ -32,11 +47,20 @@ const Announcement = () => {
 
   return (
     <>
-       <Row gutter={[16, 16]}>
+      <Row gutter={[16, 16]}>
         {announcements.map(({ title, category, content, creationTime }) => (
           <Col span={8}>
-            <Card style={{height: '100%', minHeight: '200px'}} bordered={false}>
-              <Meta avatar={<SoundOutlined />} title={title} />
+            <Card
+              style={{
+                height: "100%",
+                minHeight: "200px",
+                textAlign: "center",
+              }}
+              bordered={false}
+            >
+              {getCategoryIcon(category)}
+              <br />
+              <h1 style={{fontSize: "18px"}}> {title}</h1>
               <AnnouncementContent content={content} date={creationTime} />
             </Card>
           </Col>
