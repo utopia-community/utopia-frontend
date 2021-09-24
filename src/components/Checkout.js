@@ -11,30 +11,14 @@ const layout = {
   },
 };
 
-const validateMessages = {
-  required: "${label} is required!",
-  types: {
-    email: "${label} is not a valid email!",
-    number: "${label} is not a valid number!",
-  },
-  number: {
-    range: "${label} must be between ${min} and ${max}",
-  },
-};
-
 const Checkout = (props) => {
   const [submitting, setSubmitting] = useState(false);
-
-  const onFinish = (values) => {
-    console.log(values);
-  };
 
   return (
     <Modal
       title="Enter payment details"
       visible={props.displayModal}
       onCancel={props.onCancel}
-      okText="Pay"
       okButtonProps={{
         loading: submitting,
       }}
@@ -46,40 +30,29 @@ const Checkout = (props) => {
         }, 1000);
       }}
     >
-      <Form
-        {...layout}
-        name="nest-messages"
-        onFinish={onFinish}
-        validateMessages={validateMessages}
-      >
+      <Form {...layout} name="checkout-form">
         <Form.Item
           name={["user", "name"]}
           label="Name on card"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true, message: "Please enter name on card." }]}
         >
           <Input placeholder="John Smith" />
         </Form.Item>
 
-        <Form.Item label="Card information">
-          <Form.Item
-            name={["card", "number"]}
-            noStyle
-            rules={[{ required: true, message: "Please enter card number." }]}
-          >
+        <Form.Item
+          label="Card information"
+          rules={[
+            {
+              required: true,
+              message: "Please enter card information.",
+            },
+          ]}
+        >
+          <Form.Item name={["card", "number"]} noStyle>
             <Input placeholder="1234 1234 1234 1234" />
           </Form.Item>
           <Input.Group compact>
-            <Form.Item
-              name={["card", "expiry"]}
-              noStyle
-              rules={[
-                { required: true, message: "Please enter card expiry date." },
-              ]}
-            >
+            <Form.Item name={["card", "expiry"]} noStyle>
               <Input style={{ width: "50%" }} placeholder="MM / YY" />
             </Form.Item>
             <Form.Item
@@ -103,6 +76,7 @@ const Checkout = (props) => {
           rules={[
             {
               required: true,
+              message: "Please enter the billing address.",
             },
           ]}
         >

@@ -6,17 +6,17 @@ import {
   useLocation,
   useHistory,
 } from "react-router-dom";
-import "./App.css";
+import "./Main.css";
 
 import Announcement from "./Announcement.js";
 import MyProfile from "./MyProfile.js";
 import Register from "./Register.js";
 import Payment from "./Payment.js";
 import Request from "./Request.js";
+import RequestAdmin from "./RequestAdmin.js";
 import NewRequest from "./NewRequest.js";
 import Login from "./Login.js";
-import AppLayout from "./AppLayout.js";
-import HomepageLayout from "./HomepageLayout.js";
+import MainLayout from "./MainLayout.js";
 import NewAnnouncement from "./NewAnnouncement.js";
 
 const PrivateRoute = ({ children, authenticated, ...rest }) => {
@@ -28,7 +28,7 @@ const PrivateRoute = ({ children, authenticated, ...rest }) => {
   }
 };
 
-function App() {
+function Main() {
   const history = useHistory();
 
   const [authenticated, setAuthenticated] = React.useState(false);
@@ -55,9 +55,9 @@ function App() {
         </Route>
 
         <PrivateRoute path="/announcements" authenticated={authenticated} exact>
-          <HomepageLayout>
+          <MainLayout>
             <Announcement />
-          </HomepageLayout>
+          </MainLayout>
         </PrivateRoute>
 
         <PrivateRoute
@@ -65,37 +65,47 @@ function App() {
           authenticated={authenticated}
           exact
         >
-          <HomepageLayout>
+          <MainLayout>
             <NewAnnouncement />
-          </HomepageLayout>
+          </MainLayout>
+        </PrivateRoute>
+
+        <PrivateRoute
+          path="/admin/requests"
+          authenticated={authenticated}
+          exact
+        >
+          <MainLayout>
+            <RequestAdmin />
+          </MainLayout>
         </PrivateRoute>
 
         <PrivateRoute path="/request" authenticated={authenticated} exact>
-          <AppLayout>
+          <MainLayout>
             <Request />
-          </AppLayout>
+          </MainLayout>
         </PrivateRoute>
 
         <PrivateRoute path="/new_request" authenticated={authenticated} exact>
-          <AppLayout>
+          <MainLayout>
             <NewRequest />
-          </AppLayout>
+          </MainLayout>
         </PrivateRoute>
 
         <PrivateRoute path="/payment" authenticated={authenticated} exact>
-          <AppLayout>
+          <MainLayout>
             <Payment />
-          </AppLayout>
+          </MainLayout>
         </PrivateRoute>
 
         <PrivateRoute path="/profile" authenticated={authenticated} exact>
-          <AppLayout>
+          <MainLayout>
             <MyProfile />
-          </AppLayout>
+          </MainLayout>
         </PrivateRoute>
       </Switch>
     </div>
   );
 }
 
-export default App;
+export default Main;

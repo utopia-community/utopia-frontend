@@ -110,4 +110,30 @@ export const newAnnouncement = (data) => {
     }
   });
 };
-// ----------Request Related APIs------------------
+// ----------Requests APIs------------------
+export const getAllRequests = () => {
+  return fetch("/allRequests").then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to get requests");
+    }
+    return response.json();
+  });
+};
+
+// ----------New Request APIs---------------
+export const newRequest = (data) => {
+  const newRequestUrl = "/newRequest";
+
+  return fetch(newRequestUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(data),
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to create new request");
+    }
+  });
+};

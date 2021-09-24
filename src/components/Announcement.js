@@ -1,4 +1,4 @@
-import { Card, message, Typography, Space, Col, Row } from "antd";
+import { Card, Layout, message, Typography, Space, Col, Row } from "antd";
 import {
   ReadOutlined,
   TeamOutlined,
@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { getAnnouncements } from "../utils";
 
 const { Text } = Typography;
-const { Meta } = Card;
 
 const AnnouncementContent = (props) => {
   return (
@@ -24,12 +23,12 @@ const AnnouncementContent = (props) => {
 
 const getCategoryIcon = (category) => {
   const categoryToIcon = {
-    category1: <HomeOutlined />,
-    category2: <TeamOutlined />,
-    category3: <ToolOutlined />,
-    category4: <ReadOutlined />,
+    GENERAL_ANNOUNCEMENT: <HomeOutlined />,
+    COMMITTEE_MEETING: <TeamOutlined />,
+    MAINTENANCE_UPDATE: <ToolOutlined />,
+    OTHERS: <ReadOutlined />,
   };
-  return categoryToIcon[category] || <HomeOutlined />;
+  return categoryToIcon[category] || <ReadOutlined />;
 };
 
 const Announcement = () => {
@@ -46,8 +45,30 @@ const Announcement = () => {
   }, []);
 
   return (
-    <>
-      <Row gutter={[16, 16]}>
+    <Layout>
+      <div
+        style={{
+          background:
+            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
+          padding: "50px",
+          textAlign: "center",
+          fontSize: "24px",
+          fontWeight: "bold",
+        }}
+      >
+        Announcements
+      </div>
+
+      {/* display latest 6 announcements */}
+      <Row
+        gutter={[16, 16]}
+        style={{
+          paddingTop: "50px",
+          paddingBottom: "50px",
+          paddingLeft: "100px",
+          paddingRight: "100px",
+        }}
+      >
         {announcements.map(({ title, category, content, creationTime }) => (
           <Col span={8}>
             <Card
@@ -60,13 +81,33 @@ const Announcement = () => {
             >
               {getCategoryIcon(category)}
               <br />
-              <h1 style={{fontSize: "18px"}}> {title}</h1>
+              <h1 style={{ fontSize: "18px" }}> {title}</h1>
               <AnnouncementContent content={content} date={creationTime} />
             </Card>
           </Col>
         ))}
       </Row>
-    </>
+
+      <div
+        style={{
+          background:
+            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
+          padding: "24px",
+          textAlign: "center",
+          fontSize: "12px",
+        }}
+      >
+        <div>About us</div>
+        <div>
+          Utopia community features townhouses with spacious interiors,
+          light-filled rooms, modern finishes and the latest in smart home tech.
+        </div>
+        <div>
+          These are accompanied by a collection of outdoor spaces and
+          hospitality-focused amenities.
+        </div>
+      </div>
+    </Layout>
   );
 };
 

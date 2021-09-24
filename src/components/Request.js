@@ -1,8 +1,8 @@
-import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import React from "react";
-import "./NewRequest.js";
 import NewRequest from "./NewRequest.js";
+import { DeleteFilled } from "@ant-design/icons";
+import no_picture from "./no_picture.png";
 import {
   Card,
   Button,
@@ -14,8 +14,6 @@ import {
   Typography,
   Input,
 } from "antd";
-import { DeleteFilled } from "@ant-design/icons";
-import no_picture from "./no_picture.png";
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -120,13 +118,12 @@ const columns = [
 
 // Request Component
 const Request = () => {
-    const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-    const handleCloseModal = () => setVisible(false);
+  const handleCloseModal = () => setVisible(false);
   return (
     <>
-
-{visible && (
+      {visible && (
         <NewRequest
           displayModal={visible}
           onSuccess={handleCloseModal}
