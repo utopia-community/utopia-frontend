@@ -55,30 +55,30 @@ const Payment = () => {
   console.log("rendering Payment");
   return (
     <>
-      <Row gutter={[32, 8]}>
-        <Col span={18}>
-          <Card title="Payment history">
+      <Card title="Payment history" style={{ marginTop: "5vh" }}>
+        <Row gutter={[32, 8]}>
+          <Col span={18}>
             <Table columns={columns} dataSource={data} />
-          </Card>
-        </Col>
+          </Col>
 
-        <Col>
-          <Card>
-            <Space direction="vertical">
-              <Statistic title="Balance outstanding" value={"$ 120"} />
-              <Button onClick={() => setDisplayCheckout(true)} type="primary">
-                Pay now
-              </Button>
-            </Space>
-          </Card>
-        </Col>
-      </Row>
+          <Col>
+            <Card>
+              <Space direction="vertical">
+                <Statistic title="Balance outstanding" value={"$ 120"} />
+                <Button onClick={() => setDisplayCheckout(true)} type="primary">
+                  Pay now
+                </Button>
+              </Space>
+            </Card>
+          </Col>
+        </Row>
 
-      <Checkout
-        displayModal={displayCheckout}
-        onSuccess={() => setDisplayCheckout(false)}
-        onCancel={() => setDisplayCheckout(false)}
-      />
+        <Checkout
+          displayModal={displayCheckout}
+          onSuccess={() => setDisplayCheckout(false)}
+          onCancel={() => setDisplayCheckout(false)}
+        />
+      </Card>
     </>
   );
 };

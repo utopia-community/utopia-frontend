@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Card, Form, Input, Button, Select } from "antd";
+import { Card, Form, Input, Button, message, Select } from "antd";
 import { useHistory } from "react-router-dom";
 import { newAnnouncement } from "../utils";
 
@@ -12,13 +11,14 @@ const NewAnnouncement = () => {
       title: values.title,
       category: values.category,
       content: values.content,
-    });
-    history.push("/announcements");
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    })
+      .then(() => {
+        history.push("/announcements");
+        message.success("New announcement has been successfully created!");
+      })
+      .catch((err) => {
+        message.error(err.message);
+      });
   };
 
   return (
@@ -27,13 +27,7 @@ const NewAnnouncement = () => {
         name="newAnnouncement"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 8 }}
-        initialValues={{
-          title: "",
-          category: "category1",
-          content: "",
-        }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
@@ -50,10 +44,10 @@ const NewAnnouncement = () => {
           rules={[{ required: true, message: "Please select a category." }]}
         >
           <Select>
-            <Option value="category1">General announcement</Option>
-            <Option value="category2">Committee meeting</Option>
-            <Option value="category3">Maintenance update</Option>
-            <Option value="category4">Others</Option>
+            <Option value="GENERAL_ANNOUNCEMENT">General announcement</Option>
+            <Option value="COMMITTEE_MEETING">Committee meeting</Option>
+            <Option value="MAINTENANCE_UPDATE">Maintenance update</Option>
+            <Option value="OTHERS">Others</Option>
           </Select>
         </Form.Item>
 

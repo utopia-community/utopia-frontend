@@ -1,59 +1,12 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  message,
-  Modal,
-  Upload,
-  Col,
-  Select,
-} from "antd";
+import { Form, Input, Button, message, Modal, Upload, Col, Select } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { newRequest } from "../utils";
 
 class NewRequest extends React.Component {
-  // state = {
-  //   displayModal: false
-  // }
-  handleCancel = () => {
-    this.props.onCancel();
-    // this.setState({
-    //   displayModal: false,
-    // })
-  };
-
-  // newOnClick = () => {
-  //   this.setState({
-  //     displayModal: true,
-  //   })
-  // }
-
   onFinish = (data) => {
-    const SERVER_ORIGIN = "";
-
-    const newRequestUrl = `${SERVER_ORIGIN}/new_request`;
-
-    const newRequest = (credential) => {
-      return fetch(newRequestUrl, {
-        method: "POST",
-        header: {
-          "Content-Type": "application/jason",
-        },
-        credentials: "include",
-        body: JSON.stringify(credential),
-      }).then((response) => {
-        if (response.status !== 200) {
-          throw Error("Fail to request");
-        }
-        return response.json();
-      });
-    };
-
     newRequest(data)
-      .then((data) => {
-        // this.setState({
-        //   displayModal: false,
-        // })
+      .then(() => {
         message.success(`Submitted!`);
         this.props.onSuccess();
       })
@@ -68,19 +21,17 @@ class NewRequest extends React.Component {
 
     return (
       <>
-        {/* <Button shape="round" onClick={this.newOnClick} style={{ marginRight: '20px' }}>
-        New Request</Button> */}
         <Modal
           title="New Request"
           visible={this.props.displayModal}
-          onCancel={this.handleCancel}
+          onCancel={this.props.onCancel}
           footer={null}
           destroyOnClose={true}
         >
           <Form name="request" onFinish={this.onFinish} preserve={false}>
             <Form.Item
               name="title"
-              label="Title"
+              label="Issue"
               rules={[{ required: true, message: "Please input the title." }]}
             >
               <Input />
@@ -92,9 +43,9 @@ class NewRequest extends React.Component {
               rules={[{ required: true, message: "Please select a category." }]}
             >
               <Select>
-                <Option value="book-facilities">Book common facilities</Option>
-                <Option value="request-repair">Request for repair</Option>
-                <Option value="lodge-complaint">Lodge a complaint</Option>
+                <Option value="BOOK_FACILITIES">Book facilities</Option>
+                <Option value="REQUEST_REPAIR">Request for repair</Option>
+                <Option value="LODGE_COMPLAINT">Lodge a complaint</Option>
               </Select>
             </Form.Item>
 

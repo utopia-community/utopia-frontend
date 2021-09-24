@@ -3,7 +3,7 @@ import { Layout, Button, Space } from "antd";
 
 const { Header, Content, Footer } = Layout;
 
-const HomepageLayout = ({ children }) => {
+const MainLayout = ({ children }) => {
   const history = useHistory();
 
   const onLogout = (e) => {
@@ -39,13 +39,22 @@ const HomepageLayout = ({ children }) => {
             }}
           >
             <Space>
+              <Button
+                type="default"
+                size="middle"
+                onClick={() => {
+                  history.push("/announcements");
+                }}
+              >
+                Home
+              </Button>
               {/* to perform role check for new announcement and requests from login API*/}
               {/* Update routing to request management page */}
               <Button
                 type="default"
                 size="middle"
                 onClick={() => {
-                  history.push("/login");
+                  history.push("/admin/requests");
                 }}
               >
                 Requests
@@ -86,42 +95,8 @@ const HomepageLayout = ({ children }) => {
         </div>
       </Header>
 
-      <div
-        style={{
-          background: "rgb(2,0,36)",
-          background:
-            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
-          padding: "50px",
-          textAlign: "center",
-          fontSize: "24px",
-          fontWeight: "bold",
-        }}
-      >
-        Announcements
-      </div>
-
-      <Content style={{ padding: "50px 100px" }}>{children}</Content>
-
-      <div
-        style={{
-          background: "rgb(2,0,36)",
-          background:
-            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
-          padding: "24px",
-          textAlign: "center",
-          fontSize: "12px",
-        }}
-      >
-        <div>About us</div>
-        <div>
-          Utopia community features townhouses with spacious interiors,
-          light-filled rooms, modern finishes and the latest in smart home tech.
-        </div>
-        <div>
-          These are accompanied by a collection of outdoor spaces and
-          hospitality-focused amenities.
-        </div>
-      </div>
+      <Content>{children}</Content>
+      {/* <Content style={{ padding: "50px 100px" }}>{children}</Content> */}
 
       <Footer
         style={{
@@ -142,4 +117,4 @@ const HomepageLayout = ({ children }) => {
   );
 };
 
-export default HomepageLayout;
+export default MainLayout;
