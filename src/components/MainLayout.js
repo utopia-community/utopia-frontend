@@ -11,26 +11,27 @@ const MainLayout = ({ children }) => {
   };
 
   return (
-    <Layout className="layout">
-      <Header className="header">
+    <Layout className="layout" style={{ minHeight: "100vh" }}>
+      <Header className="header" style={{ background: "white" }}>
         <div
           style={{
             display: "flex",
           }}
         >
-          <div
+          <a
+            onClick={() => history.push("/announcements")}
             className="logo"
             style={{
-              color: "white",
+              display: "block",
+              color: "black",
               fontSize: 28,
-              fontWeight: "bold",
-              letterSpacing: 0.5,
+              letterSpacing: "5px",
               textTransform: "uppercase",
               textAlign: "center",
             }}
           >
             UTOPIA
-          </div>
+          </a>
           <div
             style={{
               display: "flex",
@@ -107,7 +108,16 @@ const MainLayout = ({ children }) => {
           background: "#041E42",
         }}
       >
+        <div>About us</div>
         <div>
+          Utopia community features townhouses with spacious interiors,
+          light-filled rooms, modern finishes and the latest in smart home tech.
+        </div>
+        <div>
+          These are accompanied by a collection of outdoor spaces and
+          hospitality-focused amenities.
+        </div>
+        <div style={{ marginTop: "1rem" }}>
           3645 Haven Avenue Menlo Park, CA 94025 | contactus@utopia.com |
           650-708-1111
         </div>

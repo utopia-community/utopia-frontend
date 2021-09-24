@@ -1,5 +1,5 @@
 import { Form, Input, Button, Card } from "antd";
-import background from "./house_background.jpg";
+import background from "../images/townhouse-background.jpeg";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { message } from "antd";

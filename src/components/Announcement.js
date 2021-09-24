@@ -8,6 +8,8 @@ import {
 import { useEffect, useState } from "react";
 import { getAnnouncements } from "../utils";
 
+import background from "../images/unsplash-1.jpg";
+
 const { Text } = Typography;
 
 const AnnouncementContent = (props) => {
@@ -44,16 +46,30 @@ const Announcement = () => {
       });
   }, []);
 
+  const headerBackgroundStyles = {
+    backgroundImage: `url(${background})`,
+    backgroundPosition: "0% 60%",
+    backgroundSize: "100vw auto",
+    backgroundRepeat: "no-repeat",
+  };
+
+  const footerBackgroundStyles = {
+    backgroundImage: `url(${background})`,
+    backgroundPosition: "0% 60%",
+    backgroundSize: "100vw auto",
+    backgroundRepeat: "no-repeat",
+  };
+
   return (
     <Layout>
       <div
         style={{
-          background:
-            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
+          height: "120px",
           padding: "50px",
           textAlign: "center",
           fontSize: "24px",
           fontWeight: "bold",
+          ...headerBackgroundStyles,
         }}
       >
         Announcements
@@ -87,26 +103,6 @@ const Announcement = () => {
           </Col>
         ))}
       </Row>
-
-      <div
-        style={{
-          background:
-            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
-          padding: "24px",
-          textAlign: "center",
-          fontSize: "12px",
-        }}
-      >
-        <div>About us</div>
-        <div>
-          Utopia community features townhouses with spacious interiors,
-          light-filled rooms, modern finishes and the latest in smart home tech.
-        </div>
-        <div>
-          These are accompanied by a collection of outdoor spaces and
-          hospitality-focused amenities.
-        </div>
-      </div>
     </Layout>
   );
 };
