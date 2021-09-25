@@ -1,168 +1,165 @@
-import { useState } from "react";
-import React from "react";
+import { useState, useEffect } from "react";
+import { Card, Button, Table, Tag, Row, Col, message } from "antd";
+import Title from "antd/es/typography/Title";
+import { BookOutlined, DeleteFilled, FireOutlined, ToolOutlined } from "@ant-design/icons";
+
 import NewRequest from "./NewRequest.js";
-import { DeleteFilled } from "@ant-design/icons";
-import no_picture from "./no_picture.png";
-import {
-  Card,
-  Button,
-  Table,
-  Tag,
-  Space,
-  Row,
-  Col,
-  Typography,
-  Input,
-} from "antd";
+import { getCurrentRequests } from "../utils";
 
-const { Title } = Typography;
-const { Search } = Input;
 
-const testData = [];
-for (let i = 1; i < 23; i++) {
-  if (i % 2 !== 0) {
-    testData.push({
-      title: `Resident Request #${i}`,
-      description:
-        "This is a service request from resident. This is a service request from resident. This is a service request from resident. " +
-        "This is a service request from resident. This is a service request from resident. This is a service request from resident.",
-      status: "Active",
-      date_created: `9/${5 + i}/2021`,
-      request_id: `100${i}`,
-      upload_pic:
-        "https://www.nicepng.com/png/full/417-4176164_transparent-light-bulb-cartoon.png",
-    });
-  } else {
-    testData.push({
-      title: `Resident Request #${i}`,
-      description:
-        "This is a complete request. This is a complete request. This is a complete request. " +
-        "This is a complete request. This is a complete request. This is a complete request.",
-      status: "Completed",
-      date_created: `9/${5 + i}/2021`,
-      request_id: `${1000 + i}`,
-    });
-  }
-}
-// console.log(testData);
-
-// Table -Columns definition
+// Define columns
 const columns = [
-  {
-    title: "SUBJECT",
-    dataIndex: "title",
-    width: "70%",
-    render: (text, record) => {
-      // console.log(record);
-      return (
-        <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 24 }}>
-          <Col span={4}>
-            {record.upload_pic === undefined ? (
-              <img src={no_picture} width={100} alt="No image" />
-            ) : (
-              <img src={record.upload_pic} width={100} alt="Upload" />
-            )}
-          </Col>
-
-          <Col span={19}>
-            <Title level={4}>{text}</Title>
-            {record.description}
-          </Col>
-        </Row>
-      );
+    {
+        title: "CREATION DATE",
+        dataIndex: "creationTime",
+        sorter: (a, b) => new Date(a.creationTime) - new Date(b.creationTime),
+        width: "10%",
+        render: (creationTime) => {
+            return <>
+                <p>
+                    {new Date(creationTime).toLocaleDateString('en-US')}
+                    <span> </span>
+                    {new Date(creationTime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+                </p>
+            </>
+        }
     },
-  },
-  {
-    title: "STATUS",
-    dataIndex: "status",
-    width: "10%",
-    sorter: (a, b) => a.status.localeCompare(b.status),
-    render: (status) => {
-      let color = "pink";
-      if (status === "Completed") {
-        color = "green";
-      }
-      return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
-        </Tag>
-      );
+    {
+        title: "CATEGORY",
+        dataIndex: "category",
+        width: "15%",
+        sorter: (a, b) => a.category.localeCompare(b.category),
+        render: (category) => {
+            return (
+                <>
+                    {(() => {
+                        switch (category) {
+                            case "BOOK_FACILITIES":
+                                return <Tag color="grey" key={category}>
+                                    <BookOutlined/> Book Facilities
+                                </Tag>;
+                            case "LODGE_COMPLAINT":
+                                return <Tag color="grey" key={category}>
+                                    <FireOutlined/> Lodge Complaint
+                                </Tag>;
+                            case "REQUEST_REPAIR":
+                                return <Tag color="grey" key={category}>
+                                    <ToolOutlined/> Request Repair
+                                </Tag>;
+                        }
+                    })()}
+                </>
+            );
+        },
     },
-  },
-  {
-    title: "DATE",
-    dataIndex: "date_created",
-    sorter: (a, b) => new Date(a.date_created) - new Date(b.date_created),
-    width: "10%",
-  },
-  {
-    title: "ACTION",
-    width: "10%",
-    render: (text, record) => {
-      return (
-        <Space size="middle">
-          <Button danger>
-            <DeleteFilled />
-            Delete
-          </Button>
-          {record.status === "Completed" ? (
-            <></>
-          ) : (
-            <Button type="primary">Resolved</Button>
-          )}
-        </Space>
-      );
+    {
+        title: "DESCRIPTION",
+        dataIndex: "content",
+        width: "55%",
+        render: (text, record) => {
+            return (
+                <Row gutter={{xs: 4, sm: 8, md: 12, lg: 24}}>
+                    <Col span={20}>
+                        <Title level={5}>{record.title}</Title>
+                        {record.content}
+                    </Col>
+                    <Col span={4}>
+                        {record.upload_pic === undefined ? (<></>) : (
+                            <img src={record.upload_pic} width={100} alt="Upload"/>
+                        )}
+                    </Col>
+                </Row>
+            );
+        },
     },
-  },
+    {
+        title: "STATUS",
+        dataIndex: "status",
+        width: "10%",
+        sorter: (a, b) => a.status.localeCompare(b.status),
+        render: (status) => {
+            let color = "green";
+            if (status === "Open") {
+                color = "pink";
+            } else if (status === "In progress") {
+                color = "blue";
+            }
+            return (
+                <Tag color={color} key={status}>
+                    {status.toUpperCase()}
+                </Tag>
+            );
+        },
+    },
+    {
+        title: "ACTION",
+        width: "10%",
+        render: () => {
+            return (
+                <Button danger size={"small"}>
+                    <DeleteFilled/>
+                    Delete
+                </Button>
+            );
+        },
+    }
 ];
 
 // Request Component
 const Request = () => {
-  const [visible, setVisible] = useState(false);
+  // NewRequest modal display controller
+    const [newRequestVisible, setNewRequestVisible] = useState(false);
+    const handleCloseModal = () => setNewRequestVisible(false);
 
-  const handleCloseModal = () => setVisible(false);
-  return (
-    <>
-      {visible && (
-        <NewRequest
-          displayModal={visible}
-          onSuccess={handleCloseModal}
-          onCancel={handleCloseModal}
-        />
-      )}
-      <Card
-        title="Request"
-        extra={
-          <Button
-            shape="round"
-            onClick={() => {
-              setVisible(true);
-            }}
-          >
-            New Request
-          </Button>
-        }
-      >
-        <Row justify="space-between" align="middle">
-          <Col span={4}>
-            <Search placeholder="Search Request" enterButton />
-          </Col>
-        </Row>
+  // fetch current user's requests
+    const [currentRequests, setCurrentRequests] = useState([]);
+    useEffect(() => {
+        getCurrentRequests()
+            .then((data) => {
+                setCurrentRequests(data);
+                console.log(data);
+            })
+            .catch((err) => {
+                message.error(err.message);
+            });
+    }, []);
 
-        <Table
-          columns={columns}
-          dataSource={testData}
-          rowKey="request_id"
-          pagination={{
-            onChange: (page) => {
-              console.log(page);
-            },
-            pageSize: 5,
-          }}
-        />
-      </Card>
-    </>
-  );
+    return (
+        <>
+            {newRequestVisible && (
+                <NewRequest
+                    displayModal={newRequestVisible}
+                    onSuccess={handleCloseModal}
+                    onCancel={handleCloseModal}
+                />
+            )}
+            <Card
+                title="Request"
+                extra={
+                    <Button
+                        shape="round"
+                        onClick={() => {
+                            setNewRequestVisible(true);
+                        }}
+                    >
+                        New Request
+                    </Button>
+                }
+            >
+                <Table
+                    columns={columns}
+                    dataSource={currentRequests}
+                    rowKey="request_id"
+                    pagination={{
+                        onChange: (page) => {
+                            console.log(page);
+                        },
+                        pageSize: 5,
+                    }}
+                />
+            </Card>
+        </>
+    );
 };
 
 export default Request;

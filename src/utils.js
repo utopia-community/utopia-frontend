@@ -1,4 +1,3 @@
-import axios from "axios";
 import { message } from "antd";
 
 const SERVER_ORIGIN = "http://localhost:8080";
@@ -110,9 +109,39 @@ export const newAnnouncement = (data) => {
     }
   });
 };
+
 // ----------Requests APIs------------------
 export const getAllRequests = () => {
   return fetch("/allRequests").then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to get requests");
+    }
+    return response.json();
+  });
+};
+
+export const setRequestStatus = (data) => {
+  const setRequestStatusUrl = "/setRequestStatus";
+
+  // takes in a list to support future mass update status
+  return fetch(setRequestStatusUrl, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify([data]),
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to update request status");
+    }
+  });
+};
+
+export const getCurrentRequests = () => {
+  return fetch("/currentRequests", {
+    method: "GET",
+    credentials: "include"
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get requests");
     }
