@@ -84,6 +84,7 @@ export const logout = (data) => {
 };
 
 //----------Announcement Related APIs------------------
+
 export const getAnnouncements = () => {
   return fetch("/announcements").then((response) => {
     if (response.status < 200 || response.status >= 300) {
@@ -111,6 +112,7 @@ export const newAnnouncement = (data) => {
 };
 
 // ----------Requests APIs------------------
+
 export const getAllRequests = () => {
   return fetch("/allRequests").then((response) => {
     if (response.status < 200 || response.status >= 300) {
@@ -150,6 +152,7 @@ export const getCurrentRequests = () => {
 };
 
 // ----------New Request APIs---------------
+
 export const newRequest = (data) => {
   const newRequestUrl = "/newRequest";
 

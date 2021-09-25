@@ -12,6 +12,7 @@ const columns = [
         title: "CREATION DATE",
         dataIndex: "creationTime",
         sorter: (a, b) => new Date(a.creationTime) - new Date(b.creationTime),
+        defaultSortOrder: "ascend",
         width: "10%",
         render: (creationTime) => {
             return <>
