@@ -142,7 +142,7 @@ export const setRequestStatus = (data) => {
 export const getCurrentRequests = () => {
   return fetch("/currentRequests", {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get requests");

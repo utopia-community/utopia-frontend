@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { Layout, Button, Space } from "antd";
+import "./MainLayout.css";
 
 const { Header, Content, Footer } = Layout;
 
@@ -11,36 +12,23 @@ const MainLayout = ({ children }) => {
   };
 
   return (
-    <Layout className="layout">
-      <Header className="header">
+    <Layout className="layout" style={{ minHeight: "100vh" }}>
+      <Header className="header" style={{ background: "white" }}>
         <div
           style={{
             display: "flex",
           }}
         >
-          <div
-            className="logo"
-            style={{
-              color: "white",
-              fontSize: 28,
-              fontWeight: "bold",
-              letterSpacing: 0.5,
-              textTransform: "uppercase",
-              textAlign: "center",
-            }}
+          <a
+            onClick={() => history.push("/announcements")}
+            className="MainLayout-logo"
           >
             UTOPIA
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexGrow: 1,
-              justifyContent: "flex-end",
-            }}
-          >
+          </a>
+          <div className="MainLayout-buttonDiv">
             <Space>
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/announcements");
@@ -51,7 +39,7 @@ const MainLayout = ({ children }) => {
               {/* to perform role check for new announcement and requests from login API*/}
               {/* Update routing to request management page */}
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/admin/requests");
@@ -61,7 +49,7 @@ const MainLayout = ({ children }) => {
               </Button>
 
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/announcements/new-announcement");
@@ -71,7 +59,7 @@ const MainLayout = ({ children }) => {
               </Button>
 
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/profile");
@@ -81,7 +69,7 @@ const MainLayout = ({ children }) => {
               </Button>
 
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/login");
@@ -96,18 +84,18 @@ const MainLayout = ({ children }) => {
       </Header>
 
       <Content>{children}</Content>
-      {/* <Content style={{ padding: "50px 100px" }}>{children}</Content> */}
 
-      <Footer
-        style={{
-          textAlign: "center",
-          fontSize: "12px",
-          color: "white",
-          padding: "12px",
-          background: "#041E42",
-        }}
-      >
+      <Footer className="MainLayout-footer">
+        <div>About us</div>
         <div>
+          Utopia community features townhouses with spacious interiors,
+          light-filled rooms, modern finishes and the latest in smart home tech.
+        </div>
+        <div>
+          These are accompanied by a collection of outdoor spaces and
+          hospitality-focused amenities.
+        </div>
+        <div style={{ marginTop: "1rem" }}>
           3645 Haven Avenue Menlo Park, CA 94025 | contactus@utopia.com |
           650-708-1111
         </div>

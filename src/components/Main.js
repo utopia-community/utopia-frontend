@@ -8,10 +8,9 @@ import {
 } from "react-router-dom";
 import "./Main.css";
 
-import Announcement from "./Announcement.js";
+import Announcement from "./Announcements.js";
 import MyProfile from "./MyProfile.js";
 import Register from "./Register.js";
-import Payment from "./Payment.js";
 import Request from "./Request.js";
 import RequestAdmin from "./RequestAdmin.js";
 import NewRequest from "./NewRequest.js";
@@ -19,6 +18,9 @@ import Login from "./Login.js";
 import MainLayout from "./MainLayout.js";
 import NewAnnouncement from "./NewAnnouncement.js";
 
+// React private route:
+// When a user has not logged in and tries to access other url that requires login,
+// private router redirects user to login page
 const PrivateRoute = ({ children, authenticated, ...rest }) => {
   const location = useLocation();
   if (authenticated) {
@@ -29,6 +31,7 @@ const PrivateRoute = ({ children, authenticated, ...rest }) => {
 };
 
 function Main() {
+  // update the latest routing path using history
   const history = useHistory();
 
   const [authenticated, setAuthenticated] = React.useState(false);
@@ -89,12 +92,6 @@ function Main() {
         <PrivateRoute path="/new_request" authenticated={authenticated} exact>
           <MainLayout>
             <NewRequest />
-          </MainLayout>
-        </PrivateRoute>
-
-        <PrivateRoute path="/payment" authenticated={authenticated} exact>
-          <MainLayout>
-            <Payment />
           </MainLayout>
         </PrivateRoute>
 

@@ -1,7 +1,7 @@
-import { Form, Input, Button, Checkbox, message, Card } from "antd";
+import { Form, Input, Space, Button, Checkbox, message, Card } from "antd";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import background from "./house_background.jpg";
+import background from "../images/townhouse-background.jpeg";
 import { login } from "../utils";
 
 const Login = (props) => {
@@ -110,15 +110,14 @@ const Login = (props) => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
-          </Form.Item>
-
-          <Form.Item className={useStyles().root} label="Create account">
-            <Button onClick={() => history.push("/register")}>
-              Register Now
-            </Button>
+            <Space>
+              <Button type="primary" htmlType="submit">
+                Login
+              </Button>
+              <Button onClick={() => history.push("/register")}>
+                Register Now
+              </Button>
+            </Space>
           </Form.Item>
         </Form>
       </Card>
