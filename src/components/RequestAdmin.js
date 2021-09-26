@@ -98,6 +98,12 @@ const columns = [
                     <ToolOutlined /> Request Repair
                   </Tag>
                 );
+                default: 
+                return (
+                  <Tag color="grey" key={category}>
+                    <BookOutlined /> Others
+                  </Tag>
+                );
             }
           })()}
         </>

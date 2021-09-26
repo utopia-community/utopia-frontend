@@ -7,9 +7,7 @@ import {
   ToolOutlined,
 } from "@ant-design/icons";
 import NewRequest from "./NewRequest.js";
-import { Card, Button, Table, Tag, Row, Col } from "antd";
-
-import NewRequest from "./NewRequest.js";
+import { Card, Button, message, Table, Tag, Row, Col } from "antd";
 import { getCurrentRequests } from "../utils";
 
 // Define columns
@@ -61,6 +59,12 @@ const columns = [
                 return (
                   <Tag color="grey" key={category}>
                     <ToolOutlined /> Request Repair
+                  </Tag>
+                );
+              default:
+                return (
+                  <Tag color="grey" key={category}>
+                    <BookOutlined /> Others
                   </Tag>
                 );
             }

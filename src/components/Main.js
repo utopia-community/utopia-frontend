@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import "./Main.css";
 
-import Announcement from "./Announcement.js";
+import Announcement from "./Announcements.js";
 import MyProfile from "./MyProfile.js";
 import Register from "./Register.js";
 import Request from "./Request.js";

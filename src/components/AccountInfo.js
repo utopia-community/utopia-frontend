@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Avatar, Descriptions, Divider, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { getAccountInfo, getAllOrders } from "../utils";
+import { getAccountInfo} from "../utils";
 
 class AccountInfo extends React.Component {
   state = {

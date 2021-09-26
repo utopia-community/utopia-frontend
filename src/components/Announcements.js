@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { getAnnouncements } from "../utils";
-import "./Announcement.css";
+import "./Announcements.css";
 
 import background from "../images/main-background.jpg";
 
@@ -47,27 +47,9 @@ const Announcement = () => {
       });
   }, []);
 
-  const headerBackgroundStyles = {
-    backgroundImage: `url(${background})`,
-    backgroundPosition: "0% 60%",
-    backgroundSize: "100vw auto",
-    backgroundRepeat: "no-repeat",
-  };
-
   return (
     <Layout>
-      <div
-        style={{
-          height: "120px",
-          padding: "50px",
-          textAlign: "center",
-          fontSize: "24px",
-          fontWeight: "bold",
-          ...headerBackgroundStyles,
-        }}
-      >
-        Announcements
-      </div>
+      <div className="Announcement-background">Announcements</div>
 
       {/* display latest 6 announcements */}
       <Row gutter={[16, 16]} className="Announcement-cardSection">
