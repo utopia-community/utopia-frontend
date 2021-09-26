@@ -1,0 +1,17 @@
+
+.Announcement-cardSection {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
+  .Announcement-card {
+    height: 100%;
+    min-height: 200px;
+    text-align: center;
+  }
+
+  .Announcement-title {
+    font-size: 18px;
+  }

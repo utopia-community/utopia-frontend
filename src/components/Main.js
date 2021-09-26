@@ -11,7 +11,6 @@ import "./Main.css";
 import Announcement from "./Announcement.js";
 import MyProfile from "./MyProfile.js";
 import Register from "./Register.js";
-import Payment from "./Payment.js";
 import Request from "./Request.js";
 import RequestAdmin from "./RequestAdmin.js";
 import NewRequest from "./NewRequest.js";

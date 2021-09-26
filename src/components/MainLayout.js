@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { Layout, Button, Space } from "antd";
+import "./MainLayout.css";
 
 const { Header, Content, Footer } = Layout;
 
@@ -20,28 +21,14 @@ const MainLayout = ({ children }) => {
         >
           <a
             onClick={() => history.push("/announcements")}
-            className="logo"
-            style={{
-              display: "block",
-              color: "black",
-              fontSize: 28,
-              letterSpacing: "5px",
-              textTransform: "uppercase",
-              textAlign: "center",
-            }}
+            className="MainLayout-logo"
           >
             UTOPIA
           </a>
-          <div
-            style={{
-              display: "flex",
-              flexGrow: 1,
-              justifyContent: "flex-end",
-            }}
-          >
+          <div className="MainLayout-buttonDiv">
             <Space>
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/announcements");
@@ -52,7 +39,7 @@ const MainLayout = ({ children }) => {
               {/* to perform role check for new announcement and requests from login API*/}
               {/* Update routing to request management page */}
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/admin/requests");
@@ -62,7 +49,7 @@ const MainLayout = ({ children }) => {
               </Button>
 
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/announcements/new-announcement");
@@ -72,7 +59,7 @@ const MainLayout = ({ children }) => {
               </Button>
 
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/profile");
@@ -82,7 +69,7 @@ const MainLayout = ({ children }) => {
               </Button>
 
               <Button
-                type="default"
+                type="text"
                 size="middle"
                 onClick={() => {
                   history.push("/login");
@@ -97,17 +84,8 @@ const MainLayout = ({ children }) => {
       </Header>
 
       <Content>{children}</Content>
-      {/* <Content style={{ padding: "50px 100px" }}>{children}</Content> */}
 
-      <Footer
-        style={{
-          textAlign: "center",
-          fontSize: "12px",
-          color: "white",
-          padding: "12px",
-          background: "#041E42",
-        }}
-      >
+      <Footer className="MainLayout-footer">
         <div>About us</div>
         <div>
           Utopia community features townhouses with spacious interiors,

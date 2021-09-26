@@ -22,7 +22,7 @@ const NewAnnouncement = () => {
   };
 
   return (
-    <Card title="Create new announcement">
+    <Card title="Create new announcement" style={{minHeight: "0"}}>
       <Form
         name="newAnnouncement"
         labelCol={{ span: 8 }}

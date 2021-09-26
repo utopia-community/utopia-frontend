@@ -7,8 +7,9 @@ import {
 } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { getAnnouncements } from "../utils";
+import "./Announcement.css";
 
-import background from "../images/unsplash-1.jpg";
+import background from "../images/main-background.jpg";
 
 const { Text } = Typography;
 
@@ -53,13 +54,6 @@ const Announcement = () => {
     backgroundRepeat: "no-repeat",
   };
 
-  const footerBackgroundStyles = {
-    backgroundImage: `url(${background})`,
-    backgroundPosition: "0% 60%",
-    backgroundSize: "100vw auto",
-    backgroundRepeat: "no-repeat",
-  };
-
   return (
     <Layout>
       <div
@@ -76,28 +70,13 @@ const Announcement = () => {
       </div>
 
       {/* display latest 6 announcements */}
-      <Row
-        gutter={[16, 16]}
-        style={{
-          paddingTop: "50px",
-          paddingBottom: "50px",
-          paddingLeft: "100px",
-          paddingRight: "100px",
-        }}
-      >
+      <Row gutter={[16, 16]} className="Announcement-cardSection">
         {announcements.map(({ title, category, content, creationTime }) => (
           <Col span={8}>
-            <Card
-              style={{
-                height: "100%",
-                minHeight: "200px",
-                textAlign: "center",
-              }}
-              bordered={false}
-            >
+            <Card className="Announcement-card" bordered={false}>
               {getCategoryIcon(category)}
               <br />
-              <h1 style={{ fontSize: "18px" }}> {title}</h1>
+              <h1 className="Announcement-title"> {title}</h1>
               <AnnouncementContent content={content} date={creationTime} />
             </Card>
           </Col>
