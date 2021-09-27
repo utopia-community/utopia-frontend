@@ -90,7 +90,7 @@ const columns = [
                     {status.toUpperCase()}
                 </Tag>
             );
-        },
+        }
     },
     {
         title: "ACTION",

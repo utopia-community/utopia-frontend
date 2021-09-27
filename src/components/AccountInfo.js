@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Avatar, Descriptions, Divider, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { getAccountInfo, getAllOrders } from "../utils";
+import { getAccountInfo} from "../utils";
 
 class AccountInfo extends React.Component {
   state = {
@@ -53,7 +53,6 @@ class AccountInfo extends React.Component {
             title="Personal Information"
             bordered
             layout="vertical"
-            labelStyle={{ color: "red" }}
             size="small"
             column={{ xxl: 2, xl: 2, lg: 1, md: 1, sm: 1, xs: 1 }}
           >

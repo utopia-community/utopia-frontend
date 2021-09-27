@@ -7,6 +7,9 @@ import {
 } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { getAnnouncements } from "../utils";
+import "./Announcements.css";
+
+import background from "../images/main-background.jpg";
 
 const { Text } = Typography;
 
@@ -46,67 +49,21 @@ const Announcement = () => {
 
   return (
     <Layout>
-      <div
-        style={{
-          background:
-            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
-          padding: "50px",
-          textAlign: "center",
-          fontSize: "24px",
-          fontWeight: "bold",
-        }}
-      >
-        Announcements
-      </div>
+      <div className="Announcement-background">Announcements</div>
 
       {/* display latest 6 announcements */}
-      <Row
-        gutter={[16, 16]}
-        style={{
-          paddingTop: "50px",
-          paddingBottom: "50px",
-          paddingLeft: "100px",
-          paddingRight: "100px",
-        }}
-      >
+      <Row gutter={[16, 16]} className="Announcement-cardSection">
         {announcements.map(({ title, category, content, creationTime }) => (
           <Col span={8}>
-            <Card
-              style={{
-                height: "100%",
-                minHeight: "200px",
-                textAlign: "center",
-              }}
-              bordered={false}
-            >
+            <Card className="Announcement-card" bordered={false}>
               {getCategoryIcon(category)}
               <br />
-              <h1 style={{ fontSize: "18px" }}> {title}</h1>
+              <h1 className="Announcement-title"> {title}</h1>
               <AnnouncementContent content={content} date={creationTime} />
             </Card>
           </Col>
         ))}
       </Row>
-
-      <div
-        style={{
-          background:
-            "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,55,121,0.23713235294117652) 0%, rgba(0,212,255,1) 100%)",
-          padding: "24px",
-          textAlign: "center",
-          fontSize: "12px",
-        }}
-      >
-        <div>About us</div>
-        <div>
-          Utopia community features townhouses with spacious interiors,
-          light-filled rooms, modern finishes and the latest in smart home tech.
-        </div>
-        <div>
-          These are accompanied by a collection of outdoor spaces and
-          hospitality-focused amenities.
-        </div>
-      </div>
     </Layout>
   );
 };
