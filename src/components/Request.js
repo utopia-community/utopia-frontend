@@ -1,188 +1,191 @@
 import { useState, useEffect } from "react";
+import { Card, Button, Table, Tag, Row, Col, message } from "antd";
 import Title from "antd/es/typography/Title";
-import {
-  BookOutlined,
-  DeleteFilled,
-  FireOutlined,
-  ToolOutlined,
-} from "@ant-design/icons";
-import NewRequest from "./NewRequest.js";
-import { Card, Button, message, Table, Tag, Row, Col } from "antd";
-import { getCurrentRequests } from "../utils";
+import { BookOutlined, DeleteFilled, FireOutlined, ToolOutlined } from "@ant-design/icons";
 
-// Define columns
-const columns = [
-  {
-    title: "CREATION DATE",
-    dataIndex: "creationTime",
-    sorter: (a, b) => new Date(a.creationTime) - new Date(b.creationTime),
-    defaultSortOrder: "descend",
-    width: "10%",
-    render: (creationTime) => {
-      return (
-        <>
-          <p>
-            {new Date(creationTime).toLocaleDateString("en-US")}
-            <span> </span>
-            {new Date(creationTime).toLocaleTimeString("en-GB", {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </p>
-        </>
-      );
-    },
-  },
-  {
-    title: "CATEGORY",
-    dataIndex: "category",
-    width: "15%",
-    sorter: (a, b) => a.category.localeCompare(b.category),
-    render: (category) => {
-      return (
-        <>
-          {(() => {
-            switch (category) {
-              case "BOOK_FACILITIES":
-                return (
-                  <Tag color="grey" key={category}>
-                    <BookOutlined /> Book Facilities
-                  </Tag>
-                );
-              case "LODGE_COMPLAINT":
-                return (
-                  <Tag color="grey" key={category}>
-                    <FireOutlined /> Lodge Complaint
-                  </Tag>
-                );
-              case "REQUEST_REPAIR":
-                return (
-                  <Tag color="grey" key={category}>
-                    <ToolOutlined /> Request Repair
-                  </Tag>
-                );
-              default:
-                return (
-                  <Tag color="grey" key={category}>
-                    <BookOutlined /> Others
-                  </Tag>
-                );
-            }
-          })()}
-        </>
-      );
-    },
-  },
-  {
-    title: "DESCRIPTION",
-    dataIndex: "content",
-    width: "55%",
-    render: (text, record) => {
-      return (
-        <Row gutter={{ xs: 4, sm: 8, md: 12, lg: 24 }}>
-          <Col span={20}>
-            <Title level={5}>{record.title}</Title>
-            {record.content}
-          </Col>
-          <Col span={4}>
-            {record.upload_pic === undefined ? (
-              <></>
-            ) : (
-              <img src={record.upload_pic} width={100} alt="Upload" />
-            )}
-          </Col>
-        </Row>
-      );
-    },
-  },
-  {
-    title: "STATUS",
-    dataIndex: "status",
-    width: "10%",
-    sorter: (a, b) => a.status.localeCompare(b.status),
-    render: (status) => {
-      let color = "green";
-      if (status === "Open") {
-        color = "pink";
-      } else if (status === "In progress") {
-        color = "blue";
-      }
-      return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
-        </Tag>
-      );
-    },
-  },
-  {
-    title: "ACTION",
-    width: "10%",
-    render: () => {
-      return (
-        <Button danger size={"small"}>
-          <DeleteFilled />
-          Delete
-        </Button>
-      );
-    },
-  },
-];
+import NewRequest from "./NewRequest.js";
+import { getCurrentRequests, deleteRequest } from "../utils";
+
 
 // Request Component
 const Request = () => {
-  // NewRequest modal display controller
-  const [newRequestVisible, setNewRequestVisible] = useState(false);
-  const handleCloseModal = () => setNewRequestVisible(false);
+    // NewRequest modal display controller
+    const [newRequestVisible, setNewRequestVisible] = useState(false);
+    const handleCloseModal = () => setNewRequestVisible(false);
 
-  // fetch current user's requests
-  const [currentRequests, setCurrentRequests] = useState([]);
-  useEffect(() => {
-    getCurrentRequests()
-      .then((data) => {
-        setCurrentRequests(data);
-        console.log(data);
-      })
-      .catch((err) => {
-        message.error(err.message);
-      });
-  }, []);
+    // fetch current user's requests
+    const [currentRequests, setCurrentRequests] = useState([]);
+    // update fetchRequests state whenever requests are updated
+    const [fetchRequests, setFetchRequests] = useState(true);
 
-  return (
-    <>
-      {newRequestVisible && (
-        <NewRequest
-          displayModal={newRequestVisible}
-          onSuccess={handleCloseModal}
-          onCancel={handleCloseModal}
-        />
-      )}
-      <Card
-        title="Request"
-        extra={
-          <Button
-            shape="round"
-            onClick={() => {
-              setNewRequestVisible(true);
-            }}
-          >
-            New Request
-          </Button>
+    useEffect(() => {
+        if (fetchRequests) {
+            getCurrentRequests()
+                .then((data) => {
+                    setCurrentRequests(data);
+                    setFetchRequests(false);
+                })
+                .catch((err) => {
+                    message.error(err.message);
+                    setFetchRequests(false);
+                });
         }
-      >
-        <Table
-          columns={columns}
-          dataSource={currentRequests}
-          rowKey="request_id"
-          pagination={{
-            onChange: (page) => {
-              console.log(page);
+    }, [fetchRequests]);
+
+    // api call to delete current user's request
+    const deleteOnClick = (requestId) => {
+        deleteRequest({
+            requestId: requestId,
+        })
+            .then(() => {
+                setFetchRequests(true);
+                message.success("Request Deleted!");
+            })
+            .catch((err) => {
+                message.error(err.message);
+            });
+    };
+
+    // Define columns
+    const columns = [
+        {
+            title: "CREATION DATE",
+            dataIndex: "creationTime",
+            sorter: (a, b) => new Date(a.creationTime) - new Date(b.creationTime),
+            defaultSortOrder: "descend",
+            width: "10%",
+            render: (creationTime) => {
+                return <>
+                    <p>
+                        {new Date(creationTime).toLocaleDateString('en-US')}
+                        <span> </span>
+                        {new Date(creationTime).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                </>
+            }
+        },
+        {
+            title: "CATEGORY",
+            dataIndex: "category",
+            width: "15%",
+            sorter: (a, b) => a.category.localeCompare(b.category),
+            render: (category) => {
+                return (
+                    <>
+                        {(() => {
+                            switch (category) {
+                                case "BOOK_FACILITIES":
+                                    return <Tag color="grey" key={category}>
+                                        <BookOutlined/> Book Facilities
+                                    </Tag>;
+                                case "LODGE_COMPLAINT":
+                                    return <Tag color="grey" key={category}>
+                                        <FireOutlined/> Lodge Complaint
+                                    </Tag>;
+                                case "REQUEST_REPAIR":
+                                    return <Tag color="grey" key={category}>
+                                        <ToolOutlined/> Request Repair
+                                    </Tag>;
+                                default:
+                                    return <></>;
+                            }
+                        })()}
+                    </>
+                );
             },
-            pageSize: 5,
-          }}
-        />
-      </Card>
-    </>
-  );
+        },
+        {
+            title: "DESCRIPTION",
+            dataIndex: "content",
+            width: "55%",
+            render: (text, record) => {
+                return (
+                    <Row gutter={{xs: 4, sm: 8, md: 12, lg: 24}}>
+                        <Col span={20}>
+                            <Title level={5}>{record.title}</Title>
+                            {record.content}
+                        </Col>
+                        <Col span={4}>
+                            {record.upload_pic === undefined ? (<></>) : (
+                                <img src={record.upload_pic} width={100} alt="Upload"/>
+                            )}
+                        </Col>
+                    </Row>
+                );
+            },
+        },
+        {
+            title: "STATUS",
+            dataIndex: "status",
+            width: "10%",
+            sorter: (a, b) => a.status.localeCompare(b.status),
+            render: (status) => {
+                let color = "green";
+                if (status === "Open") {
+                    color = "pink";
+                } else if (status === "In progress") {
+                    color = "blue";
+                }
+                return (
+                    <Tag color={color} key={status}>
+                        {status.toUpperCase()}
+                    </Tag>
+                );
+            }
+        },
+        {
+            title: "ACTION",
+            width: "10%",
+            dataIndex: "requestId",
+            render: (requestId) => {
+                return (
+                    <Button danger
+                            size={"small"}
+                            onclick={() => deleteOnClick(requestId)}>
+                        <DeleteFilled/>
+                        Delete
+                    </Button>
+                );
+            },
+        }
+    ];
+
+    return (
+        <>
+            {newRequestVisible && (
+                <NewRequest
+                    displayModal={newRequestVisible}
+                    onSuccess={handleCloseModal}
+                    onCancel={handleCloseModal}
+                />
+            )}
+            <Card
+                title="Request"
+                extra={
+                    <Button
+                        shape="round"
+                        onClick={() => {
+                            setNewRequestVisible(true);
+                        }}
+                    >
+                        New Request
+                    </Button>
+                }
+            >
+                <Table
+                    columns={columns}
+                    dataSource={currentRequests}
+                    rowKey="requestId"
+                    pagination={{
+                        onChange: (page) => {
+                            console.log(page);
+                        },
+                        pageSize: 5,
+                    }}
+                />
+            </Card>
+        </>
+    );
 };
 
 export default Request;

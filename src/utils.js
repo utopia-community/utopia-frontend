@@ -142,12 +142,28 @@ export const setRequestStatus = (data) => {
 export const getCurrentRequests = () => {
   return fetch("/currentRequests", {
     method: "GET",
-    credentials: "include",
+    credentials: "include"
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get requests");
     }
     return response.json();
+  });
+};
+
+export const deleteRequest = (data) => {
+  // takes in a list to support future mass update status
+  return fetch("/deleteRequest", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify([data]),
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to delete request");
+    }
   });
 };
 
