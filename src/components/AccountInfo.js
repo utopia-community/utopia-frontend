@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Avatar, Descriptions, Divider, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { getAccountInfo} from "../utils";
+import "./AccountInfo.css";
 
 class AccountInfo extends React.Component {
   state = {
@@ -45,7 +46,7 @@ class AccountInfo extends React.Component {
           <Divider>
             <h1>ACCOUNT INFO</h1>
           </Divider>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div className="AccountInfo-div">
             <Avatar size={100} icon={<UserOutlined />} />
           </div>
           <br />

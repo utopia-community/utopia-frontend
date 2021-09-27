@@ -9,18 +9,15 @@ import {
 import "./Main.css";
 
 import Announcement from "./Announcements.js";
-import MyProfile from "./MyProfile.js";
-import Register from "./Register.js";
-import Request from "./Request.js";
-import RequestAdmin from "./RequestAdmin.js";
-import NewRequest from "./NewRequest.js";
 import Login from "./Login.js";
 import MainLayout from "./MainLayout.js";
+import MyProfile from "./MyProfile.js";
 import NewAnnouncement from "./NewAnnouncement.js";
+import Register from "./Register.js";
+import RequestAdmin from "./RequestAdmin.js";
 
 // React private route:
-// When a user has not logged in and tries to access other url that requires login,
-// private router redirects user to login page
+// Redirects user to login page when a user is not logged in and tries to access other url that requires login
 const PrivateRoute = ({ children, authenticated, ...rest }) => {
   const location = useLocation();
   if (authenticated) {
@@ -44,6 +41,7 @@ function Main() {
           <Redirect to="/login" />
         </Route>
 
+        {/* upon successful login, redirect user to announcements page */}
         <Route path="/login">
           <Login
             onLogin={() => {
@@ -80,18 +78,6 @@ function Main() {
         >
           <MainLayout>
             <RequestAdmin />
-          </MainLayout>
-        </PrivateRoute>
-
-        <PrivateRoute path="/request" authenticated={authenticated} exact>
-          <MainLayout>
-            <Request />
-          </MainLayout>
-        </PrivateRoute>
-
-        <PrivateRoute path="/new_request" authenticated={authenticated} exact>
-          <MainLayout>
-            <NewRequest />
           </MainLayout>
         </PrivateRoute>
 
