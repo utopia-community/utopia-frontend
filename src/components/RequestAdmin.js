@@ -88,6 +88,8 @@ const RequestAdmin = () => {
                                     return <Tag color="grey" key={category}>
                                         <ToolOutlined/> Request Repair
                                     </Tag>;
+                                default:
+                                    return <></>;
                             }
                         })()}
                     </>
@@ -172,7 +174,7 @@ const RequestAdmin = () => {
                 <Table
                     columns={columns}
                     dataSource={allRequests}
-                    rowKey="request_id"
+                    rowKey="requestId"
                     pagination={{
                         onChange: (page) => {
                             console.log(page);

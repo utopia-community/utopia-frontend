@@ -151,6 +151,22 @@ export const getCurrentRequests = () => {
   });
 };
 
+export const deleteRequest = (data) => {
+  // takes in a list to support future mass update status
+  return fetch("/deleteRequest", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify([data]),
+  }).then((response) => {
+    if (response.status < 200 || response.status >= 300) {
+      throw Error("Fail to delete request");
+    }
+  });
+};
+
 // ----------New Request APIs---------------
 
 export const newRequest = (data) => {
