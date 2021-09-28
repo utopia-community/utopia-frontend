@@ -3,6 +3,7 @@ import { Layout, Button, Space } from "antd";
 import "./MainLayout.css";
 import { is } from "@babel/types";
 import { getCurrentUserRole } from "../utils";
+import { AboutUs } from "./AboutUs.js";
 
 const { Header, Content, Footer } = Layout;
 const isAdmin = getCurrentUserRole();
@@ -88,17 +89,8 @@ const MainLayout = ({ children }) => {
       </Header>
 
       <Content>{children}</Content>
-
+      <AboutUs />
       <Footer className="MainLayout-footer">
-        <div>About us</div>
-        <div>
-          Utopia community features townhouses with spacious interiors,
-          light-filled rooms, modern finishes and the latest in smart home tech.
-        </div>
-        <div>
-          These are accompanied by a collection of outdoor spaces and
-          hospitality-focused amenities.
-        </div>
         <div className="MainLayout-footerSpacing">
           3645 Haven Avenue Menlo Park, CA 94025 | contactus@utopia.com |
           650-708-1111
