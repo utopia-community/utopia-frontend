@@ -1,25 +1,26 @@
 import { useHistory } from "react-router-dom";
 import { Layout, Button, Space } from "antd";
 import "./MainLayout.css";
-import { is } from "@babel/types";
-import { getCurrentUserRole } from "../utils";
 import { AboutUs } from "./AboutUs.js";
 
 const { Header, Content, Footer } = Layout;
-const isAdmin = getCurrentUserRole();
-const showLogoText = admin => {
-  return admin ? "UTOPIA|ADMIN" : "UTOPIA";
+
+const showLogoText = (isAdmin) => {
+  return isAdmin ? "UTOPIA|ADMIN" : "UTOPIA";
 };
-const MainLayout = ({ children }) => {
+
+const MainLayout = ({ user, children }) => {
   const history = useHistory();
+  const isAdmin = user.role === 'admin';
+
   const showIconsPerUserType = () => {
     return isAdmin ? (
-      <div>
+      <>
         <Button
           type="text"
           size="middle"
           onClick={() => {
-            history.push("/admin/requests");
+            history.push("/requests");
           }}
         >
           Requests
@@ -33,7 +34,7 @@ const MainLayout = ({ children }) => {
         >
           New announcement
         </Button>
-      </div>
+      </>
     ) : (
       <Button
         type="text"
@@ -46,7 +47,8 @@ const MainLayout = ({ children }) => {
       </Button>
     );
   };
-  const onLogout = e => {
+
+  const onLogout = (e) => {
     console.log("Log out");
   };
 
@@ -72,7 +74,9 @@ const MainLayout = ({ children }) => {
               >
                 Home
               </Button>
+
               {showIconsPerUserType()}
+
               <Button
                 type="text"
                 size="middle"
