@@ -55,7 +55,7 @@ const Payment = () => {
   console.log("rendering Payment");
   return (
     <>
-      <Card title="Payment history" style={{ marginTop: "5vh" }}>
+      <Card title="Payment history">
         <Row gutter={[32, 8]}>
           <Col span={18}>
             <Table columns={columns} dataSource={data} />

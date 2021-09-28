@@ -1,8 +1,7 @@
-import { Form, Input, Space, Button, Checkbox, message, Card } from "antd";
+import { Button, Card, Checkbox, Form, Input, Space, message } from "antd";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
-import background from "../images/townhouse-background.jpeg";
 import { login } from "../utils";
+import "./Login.css";
 
 const Login = (props) => {
   const history = useHistory();
@@ -18,36 +17,9 @@ const Login = (props) => {
       });
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const backgroundStyles = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundImage: `url(${background})`,
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    width: "100vw",
-    height: "100vh",
-  };
-
-  const useStyles = makeStyles({
-    root: {
-      transform: "scale(1.0)",
-      borderWidth: 100,
-      shadowColor: "red",
-      shadowOffset: { height: 50, width: 20 },
-      shadowOpacity: 0.9,
-      shadowRadius: 0.9,
-    },
-  });
-
   return (
-    <div style={backgroundStyles}>
-      <Card title="Login to Utopia" style={{ width: "640px" }}>
+    <div className="Login-background">
+      <Card title="Login to Utopia" className="Login-card">
         <Form
           name="basic"
           labelCol={{
@@ -60,11 +32,9 @@ const Login = (props) => {
             remember: true,
           }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
-            className={useStyles().root}
             label="Username"
             name="username"
             rules={[
@@ -78,7 +48,6 @@ const Login = (props) => {
           </Form.Item>
 
           <Form.Item
-            className={useStyles().root}
             label="Password"
             name="password"
             rules={[
@@ -92,7 +61,6 @@ const Login = (props) => {
           </Form.Item>
 
           <Form.Item
-            className={useStyles().root}
             name="remember"
             valuePropName="checked"
             wrapperCol={{
@@ -104,7 +72,6 @@ const Login = (props) => {
           </Form.Item>
 
           <Form.Item
-            className={useStyles().root}
             wrapperCol={{
               offset: 8,
               span: 16,

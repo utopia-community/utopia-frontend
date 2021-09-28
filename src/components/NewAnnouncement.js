@@ -1,6 +1,7 @@
 import { Card, Form, Input, Button, message, Select } from "antd";
 import { useHistory } from "react-router-dom";
 import { newAnnouncement } from "../utils";
+import "./NewAnnouncement.css";
 
 const NewAnnouncement = () => {
   const history = useHistory();
@@ -22,7 +23,7 @@ const NewAnnouncement = () => {
   };
 
   return (
-    <Card title="Create new announcement" style={{minHeight: "0"}}>
+    <Card title="Create new announcement" className="NewAnnouncement-title">
       <Form
         name="newAnnouncement"
         labelCol={{ span: 8 }}

@@ -1,8 +1,9 @@
-import { Layout } from "antd";
 import React from "react";
+import { Layout } from "antd";
 import AccountInfo from "./AccountInfo";
 import Payment from "./Payment";
 import Request from "./Request";
+import "./MyProfile.css";
 
 const { Content, Sider } = Layout;
 
@@ -14,16 +15,10 @@ const MyProfile = () => {
           <AccountInfo />
         </Sider>
 
-        <Layout style={{ padding: "0 24px 24px" }}>
-          <Content
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: "100vh",
-            }}
-          >
+        <Layout className="MyProfile-layout">
+          <Content className="MyProfile-content">
             <Request />
+            <br/>
             <Payment />
           </Content>
         </Layout>

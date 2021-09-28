@@ -11,11 +11,14 @@ import { getCurrentRequests, deleteRequest } from "../utils";
 const Request = () => {
     // NewRequest modal display controller
     const [newRequestVisible, setNewRequestVisible] = useState(false);
-    const handleCloseModal = () => setNewRequestVisible(false);
+    const handleCloseModal = () => {
+        setNewRequestVisible(false);
+        setFetchRequests(true);
+    };
 
     // fetch current user's requests
     const [currentRequests, setCurrentRequests] = useState([]);
-    // update fetchRequests state whenever requests are updated
+    // update fetchRequests state when new request is created or request is deleted
     const [fetchRequests, setFetchRequests] = useState(true);
 
     useEffect(() => {
@@ -39,7 +42,7 @@ const Request = () => {
         })
             .then(() => {
                 setFetchRequests(true);
-                message.success("Request Deleted!");
+                message.success("Request is deleted!");
             })
             .catch((err) => {
                 message.error(err.message);
@@ -137,15 +140,21 @@ const Request = () => {
             title: "ACTION",
             width: "10%",
             dataIndex: "requestId",
-            render: (requestId) => {
+            render: (text, record) => {
                 return (
-                    <Button danger
-                            size={"small"}
-                            onclick={() => deleteOnClick(requestId)}>
-                        <DeleteFilled/>
-                        Delete
-                    </Button>
-                );
+                    <>
+                        {record.status === "Open" ? (
+                            <Button danger
+                                    size={"small"}
+                                    onClick={() => deleteOnClick(record.requestId)}>
+                                <DeleteFilled/>
+                                Delete
+                            </Button>
+                        ) : (
+                            <div>-</div>
+                        )}
+                    </>
+                )
             },
         }
     ];

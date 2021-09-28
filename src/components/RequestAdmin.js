@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
-import { Card, Button, message, Table, Tag, Row, Col } from "antd";
+import {useState, useEffect} from "react";
+import {Card, Button, message, Table, Tag, Row, Col} from "antd";
 import Title from "antd/es/typography/Title";
-import { BookOutlined, FireOutlined, ToolOutlined } from "@ant-design/icons";
+import {BookOutlined, FireOutlined, ToolOutlined} from "@ant-design/icons";
 
-import { getAllRequests, setRequestStatus } from "../utils";
+import {getAllRequests, setRequestStatus} from "../utils";
+import "./RequestAdmin.css";
 
 
 // RequestAdmin Component
@@ -89,7 +90,9 @@ const RequestAdmin = () => {
                                         <ToolOutlined/> Request Repair
                                     </Tag>;
                                 default:
-                                    return <></>;
+                                    return <Tag color="grey" key={category}>
+                                        <BookOutlined/> Others
+                                    </Tag>;
                             }
                         })()}
                     </>
@@ -154,7 +157,7 @@ const RequestAdmin = () => {
                         return (
                             <Button
                                 type="primary"
-                                style={{background: "limegreen", border: "green"}}
+                                className="RequestAdmin-resolvedButton"
                                 onClick={() => updateStatus(record.requestId, "Resolved")}
                             >
                                 Resolved
@@ -170,7 +173,8 @@ const RequestAdmin = () => {
 
     return (
         <>
-            <Card title="Requests">
+            <Card title="Requests"
+                  className="RequestAdmin-card">
                 <Table
                     columns={columns}
                     dataSource={allRequests}

@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 import { getAnnouncements } from "../utils";
 import "./Announcements.css";
 
-import background from "../images/main-background.jpg";
-
 const { Text } = Typography;
 
 const AnnouncementContent = (props) => {
@@ -34,7 +32,7 @@ const getCategoryIcon = (category) => {
   return categoryToIcon[category] || <ReadOutlined />;
 };
 
-const Announcement = () => {
+const Announcements = () => {
   const [announcements, setAnnouncements] = useState([]);
 
   useEffect(() => {
@@ -51,7 +49,6 @@ const Announcement = () => {
     <Layout>
       <div className="Announcement-background">Announcements</div>
 
-      {/* display latest 6 announcements */}
       <Row gutter={[16, 16]} className="Announcement-cardSection">
         {announcements.map(({ title, category, content, creationTime }) => (
           <Col span={8}>
@@ -68,4 +65,4 @@ const Announcement = () => {
   );
 };
 
-export default Announcement;
+export default Announcements;
