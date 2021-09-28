@@ -7,7 +7,7 @@ class NewRequest extends React.Component {
   onFinish = (data) => {
     newRequest(data)
       .then(() => {
-        message.success(`Submitted!`);
+        message.success(`New request is submitted!`);
         this.props.onSuccess();
       })
       .catch((err) => {
@@ -68,10 +68,8 @@ class NewRequest extends React.Component {
                 <Button icon={<UploadOutlined />}>Upload</Button>
               </Upload>
             </Col>
-
             <br />
-
-            <Col style={{ textAlign: "right" }}>
+            <Col>
               <Button type="primary" htmlType="submit">
                 Submit
               </Button>

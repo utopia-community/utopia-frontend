@@ -50,13 +50,10 @@ const MainLayout = ({ children }) => {
   };
 
   return (
-    <Layout className="layout" style={{ minHeight: "100vh" }}>
-      <Header className="header" style={{ background: "white" }}>
-        <div
-          style={{
-            display: "flex",
-          }}
-        >
+    <Layout className="MainLayout-layout">
+      <Header className="MainLayout-header">
+        <div className="MainLayout-headerDiv">
+          {/*  eslint-disable-next-line */}
           <a
             onClick={() => history.push("/announcements")}
             className="MainLayout-logo"
@@ -102,7 +99,7 @@ const MainLayout = ({ children }) => {
           These are accompanied by a collection of outdoor spaces and
           hospitality-focused amenities.
         </div>
-        <div style={{ marginTop: "1rem" }}>
+        <div className="MainLayout-footerSpacing">
           3645 Haven Avenue Menlo Park, CA 94025 | contactus@utopia.com |
           650-708-1111
         </div>
