@@ -7,7 +7,7 @@ class NewRequest extends React.Component {
   onFinish = (data) => {
     newRequest(data)
       .then(() => {
-        message.success(`Submitted!`);
+        message.success(`New request is submitted!`);
         this.props.onSuccess();
       })
       .catch((err) => {
