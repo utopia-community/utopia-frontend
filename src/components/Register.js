@@ -1,8 +1,7 @@
 import { Form, Input, Button, Card } from "antd";
-import background from "../images/townhouse-background.jpeg";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
 import { message } from "antd";
+import "./Register.css"
 
 const Register = () => {
   const history = useHistory();
@@ -17,14 +16,9 @@ const Register = () => {
   /* eslint-disable no-template-curly-in-string */
 
   const registerInfo = () => {
-    message.info({
+    message.success({
       content: "Register Successfully!",
       duration: 5,
-      className: "custom-class",
-      style: {
-        marginTop: "10vh",
-        // fontSize: '20px',
-      },
     });
     history.push("/login");
   };
@@ -44,34 +38,23 @@ const Register = () => {
     console.log(values);
   };
 
-  const backgroundStyles = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundImage: `url(${background})`,
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    width: "100vw",
-    height: "100vh",
-  };
-
-  const useStyles = makeStyles({
-    root: {
-      //margin: "100px",
-      //padding: "100px",
-      transform: "scale(1.0)",
-      borderWidth: 100,
-      shadowColor: "red",
-      shadowOffset: { height: 50, width: 20 },
-      shadowOpacity: 0.9,
-      shadowRadius: 0.9,
-    },
-  });
+  // SYC: mui Style not needed
+  // const useStyles = makeStyles({
+  //   root: {
+  //     //margin: "100px",
+  //     //padding: "100px",
+  //     transform: "scale(1.0)",
+  //     borderWidth: 100,
+  //     shadowColor: "red",
+  //     shadowOffset: { height: 50, width: 20 },
+  //     shadowOpacity: 0.9,
+  //     shadowRadius: 0.9,
+  //   },
+  // });
 
   return (
-    <div style={backgroundStyles}>
-      <Card title="Create a Utopia account" style={{ width: "640px" }}>
+    <div className="Register-background">
+      <Card title="Create a Utopia account" className="Register-card">
         <Form
           {...layout}
           name="nest-messages"
@@ -79,20 +62,17 @@ const Register = () => {
           validateMessages={validateMessages}
         >
           <Form.Item
-            className={useStyles().root}
             name={["user", "firstName"]}
             label="First Name"
             rules={[
               {
                 required: true,
-                //type: 'email',
               },
             ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            className={useStyles().root}
             name={["user", "lastName"]}
             label="Last Name"
             rules={[
@@ -105,7 +85,6 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            className={useStyles().root}
             name={["user", "username"]}
             label="Username"
             rules={[
@@ -119,7 +98,6 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            className={useStyles().root}
             name={["user", "password"]}
             label="Password"
             rules={[
@@ -132,7 +110,6 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            className={useStyles().root}
             name={["user", "address"]}
             label="Residential unit"
             rules={[
@@ -146,7 +123,6 @@ const Register = () => {
 
           <Form.Item
             wrapperCol={{ ...layout.wrapperCol, offset: 8 }}
-            className={useStyles().root}
           >
             <Button type="primary" htmlType="submit" onClick={registerInfo}>
               Submit

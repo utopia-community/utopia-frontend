@@ -1,3 +1,15 @@
+.Announcement-background {
+  background-image: url(../images/main-background.jpg);
+  background-position: 0% 60%;
+  background-size: 100vw auto;
+  background-repeat: no-repeat;
+  height: 120px;
+  padding: 50px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .Announcement-cardSection {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -13,16 +25,4 @@
 
 .Announcement-title {
   font-size: 18px;
-}
-
-.Announcement-background {
-  background-image: url(../images/main-background.jpg);
-  background-position: 0% 60%;
-  background-size: 100vw auto;
-  background-repeat: no-repeat;
-  height: 120px;
-  padding: 50px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
 }
