@@ -52,7 +52,6 @@ const data = [
 
 const Payment = () => {
   const [displayCheckout, setDisplayCheckout] = useState(false);
-  console.log("rendering Payment");
   return (
     <>
       <Card title="Payment history">

@@ -50,8 +50,8 @@ const Announcements = () => {
       <div className="Announcement-background">Announcements</div>
 
       <Row gutter={[16, 16]} className="Announcement-cardSection">
-        {announcements.map(({ title, category, content, creationTime }) => (
-          <Col span={8}>
+        {announcements.map(({ announcementId, title, category, content, creationTime }) => (
+          <Col key={announcementId} span={8}>
             <Card className="Announcement-card" bordered={false}>
               {getCategoryIcon(category)}
               <br />

@@ -6,7 +6,7 @@ const SERVER_ORIGIN = "http://localhost:8080";
 
 const loginUrl = `${SERVER_ORIGIN}/login`;
 // SZ: the content type should be x-www-form-urlencoded.
-export const login = credential => {
+export const login = (credential) => {
   const { username, password } = credential;
   var urlencoded = new URLSearchParams();
   urlencoded.append("username", username);
@@ -19,13 +19,19 @@ export const login = credential => {
     body: urlencoded,
     redirect: "follow",
     credentials: "include",
-  }).then(response => {
+  }).then((response) => {
     if (response.status !== 200) {
       throw Error("Fail to log in");
     }
-    // chaining fetch
-    getAccountInfo().then(data => {
-      message.success(`Welcome back, ${data.firstName + " " + data.lastName}`);
+
+    return getAccountInfo().then((user) => {
+      // TODO(sweeyongc): Once getCurrentUserRole is implemented, call that API here,
+      // and then return a combined object containing account info and role.
+      if (user.email.startsWith("admin")) {
+        return { ...user, role: "admin" };
+      } else {
+        return { ...user, role: "user" };
+      }
     });
   });
 };
@@ -37,11 +43,11 @@ export const getAccountInfo = () => {
     headers: { "Content-Type": "application/json" },
     redirect: "follow",
     credentials: "include",
-  }).then(response => {
+  }).then((response) => {
     if (response.status !== 200) {
       throw Error("Fail to get account information");
     }
-    console.log("got fetched data from backend");
+
     console.log("fetched response is: ");
     console.log(response);
 
@@ -55,14 +61,14 @@ export const getAccountInfo = () => {
 
 const registerUrl = `${SERVER_ORIGIN}/register`;
 
-export const register = data => {
+export const register = (data) => {
   return fetch(registerUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then(response => {
+  }).then((response) => {
     if (response.status !== 201) {
       // 201 represents account is successfully created.
       throw Error("Fail to register");
@@ -72,11 +78,11 @@ export const register = data => {
 
 const logoutUrl = `${SERVER_ORIGIN}/logout`;
 
-export const logout = data => {
+export const logout = (data) => {
   return fetch(logoutUrl, {
     method: "GET",
     credentials: "include",
-  }).then(response => {
+  }).then((response) => {
     if (response.status !== 200) {
       throw Error("Fail to logout");
     }
@@ -86,7 +92,7 @@ export const logout = data => {
 //----------Announcement Related APIs------------------
 
 export const getAnnouncements = () => {
-  return fetch("/announcements").then(response => {
+  return fetch("/announcements").then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get announcements");
     }
@@ -94,7 +100,7 @@ export const getAnnouncements = () => {
   });
 };
 
-export const newAnnouncement = data => {
+export const newAnnouncement = (data) => {
   const newAnnoucementUrl = "/announcements/new-announcement";
 
   return fetch(newAnnoucementUrl, {
@@ -104,7 +110,7 @@ export const newAnnouncement = data => {
     },
     credentials: "include",
     body: JSON.stringify(data),
-  }).then(response => {
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to create new announcement");
     }
@@ -114,7 +120,7 @@ export const newAnnouncement = data => {
 // ----------Requests APIs------------------
 
 export const getAllRequests = () => {
-  return fetch("/allRequests").then(response => {
+  return fetch("/allRequests").then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get requests");
     }
@@ -122,7 +128,7 @@ export const getAllRequests = () => {
   });
 };
 
-export const setRequestStatus = data => {
+export const setRequestStatus = (data) => {
   const setRequestStatusUrl = "/setRequestStatus";
 
   // takes in a list to support future mass update status
@@ -132,7 +138,7 @@ export const setRequestStatus = data => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify([data]),
-  }).then(response => {
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to update request status");
     }
@@ -143,7 +149,7 @@ export const getCurrentRequests = () => {
   return fetch("/currentRequests", {
     method: "GET",
     credentials: "include",
-  }).then(response => {
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get requests");
     }
@@ -151,7 +157,7 @@ export const getCurrentRequests = () => {
   });
 };
 
-export const deleteRequest = data => {
+export const deleteRequest = (data) => {
   // takes in a list to support future mass update status
   return fetch("/deleteRequest", {
     method: "DELETE",
@@ -160,7 +166,7 @@ export const deleteRequest = data => {
     },
     credentials: "include",
     body: JSON.stringify([data]),
-  }).then(response => {
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to delete request");
     }
@@ -169,7 +175,7 @@ export const deleteRequest = data => {
 
 // ----------New Request APIs---------------
 
-export const newRequest = data => {
+export const newRequest = (data) => {
   const newRequestUrl = "/newRequest";
 
   return fetch(newRequestUrl, {
@@ -179,7 +185,7 @@ export const newRequest = data => {
     },
     credentials: "include",
     body: JSON.stringify(data),
-  }).then(response => {
+  }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to create new request");
     }
