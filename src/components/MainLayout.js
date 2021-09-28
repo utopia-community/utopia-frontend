@@ -1,13 +1,51 @@
 import { useHistory } from "react-router-dom";
 import { Layout, Button, Space } from "antd";
 import "./MainLayout.css";
+import { is } from "@babel/types";
+import { getCurrentUserRole } from "../utils";
 
 const { Header, Content, Footer } = Layout;
-
+const isAdmin = getCurrentUserRole();
+const showLogoText = admin => {
+  return admin ? "UTOPIA|ADMIN" : "UTOPIA";
+};
 const MainLayout = ({ children }) => {
   const history = useHistory();
-
-  const onLogout = (e) => {
+  const showIconsPerUserType = () => {
+    return isAdmin ? (
+      <div>
+        <Button
+          type="text"
+          size="middle"
+          onClick={() => {
+            history.push("/admin/requests");
+          }}
+        >
+          Requests
+        </Button>
+        <Button
+          type="text"
+          size="middle"
+          onClick={() => {
+            history.push("/announcements/new-announcement");
+          }}
+        >
+          New announcement
+        </Button>
+      </div>
+    ) : (
+      <Button
+        type="text"
+        size="middle"
+        onClick={() => {
+          history.push("/profile");
+        }}
+      >
+        My profile
+      </Button>
+    );
+  };
+  const onLogout = e => {
     console.log("Log out");
   };
 
@@ -23,7 +61,7 @@ const MainLayout = ({ children }) => {
             onClick={() => history.push("/announcements")}
             className="MainLayout-logo"
           >
-            UTOPIA
+            {showLogoText(isAdmin)}
           </a>
           <div className="MainLayout-buttonDiv">
             <Space>
@@ -36,38 +74,7 @@ const MainLayout = ({ children }) => {
               >
                 Home
               </Button>
-              {/* to perform role check for new announcement and requests from login API*/}
-              {/* Update routing to request management page */}
-              <Button
-                type="text"
-                size="middle"
-                onClick={() => {
-                  history.push("/admin/requests");
-                }}
-              >
-                Requests
-              </Button>
-
-              <Button
-                type="text"
-                size="middle"
-                onClick={() => {
-                  history.push("/announcements/new-announcement");
-                }}
-              >
-                New announcement
-              </Button>
-
-              <Button
-                type="text"
-                size="middle"
-                onClick={() => {
-                  history.push("/profile");
-                }}
-              >
-                My profile
-              </Button>
-
+              {showIconsPerUserType()}
               <Button
                 type="text"
                 size="middle"
