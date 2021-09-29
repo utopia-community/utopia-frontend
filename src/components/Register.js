@@ -2,6 +2,20 @@ import { Form, Input, Button, Card } from "antd";
 import { useHistory } from "react-router-dom";
 import { message } from "antd";
 import "./Register.css"
+import { useEffect, useState } from "react";
+import { register } from "../utils";
+
+
+/*const RegisterContent = (props) => {
+  return (
+    <Space direction="vertical">
+      <h5>
+        <Text type="secondary"> {props.date}</Text>
+      </h5>
+      <Text>{props.content}</Text>
+    </Space>
+  );
+};*/
 
 const Register = () => {
   const history = useHistory();
@@ -14,15 +28,30 @@ const Register = () => {
     },
   };
   /* eslint-disable no-template-curly-in-string */
-
+  /*
   const registerInfo = () => {
+    
     message.success({
       content: "Register Successfully!",
       duration: 5,
     });
     history.push("/login");
+    //onFinish();
   };
+  
+  
+  const [register_account, setAccount] = useState([]);
 
+  useEffect(() => {
+    register()
+      .then((data) => {
+        setAccount(data);
+      })
+      .catch((err) => {
+        message.error(err.message);
+      });
+  }, []);
+*/
   const validateMessages = {
     required: "${label} is required!",
     types: {
@@ -35,7 +64,20 @@ const Register = () => {
   };
 
   const onFinish = (values) => {
-    console.log(values);
+    register({
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      password: values.password,
+      address: values.address,
+    })
+      .then(() => {
+        history.push("/login");
+        message.success("New account has been successfully created!");
+      })
+      .catch((err) => {
+        message.error(err.message);
+      });
   };
 
   // SYC: mui Style not needed
@@ -54,15 +96,18 @@ const Register = () => {
 
   return (
     <div className="Register-background">
+      
       <Card title="Create a Utopia account" className="Register-card">
+        
         <Form
           {...layout}
           name="nest-messages"
           onFinish={onFinish}
           validateMessages={validateMessages}
         >
+        
           <Form.Item
-            name={["user", "firstName"]}
+            name = "firstName"
             label="First Name"
             rules={[
               {
@@ -73,7 +118,7 @@ const Register = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name={["user", "lastName"]}
+            name = "lastName"
             label="Last Name"
             rules={[
               {
@@ -85,7 +130,7 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            name={["user", "username"]}
+            name = "username"
             label="Username"
             rules={[
               {
@@ -98,7 +143,7 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            name={["user", "password"]}
+            name = "password"
             label="Password"
             rules={[
               {
@@ -110,7 +155,7 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            name={["user", "address"]}
+            name = "address"
             label="Residential unit"
             rules={[
               {
@@ -124,12 +169,14 @@ const Register = () => {
           <Form.Item
             wrapperCol={{ ...layout.wrapperCol, offset: 8 }}
           >
-            <Button type="primary" htmlType="submit" onClick={registerInfo}>
+            <Button type="primary" htmlType="submit" onClick={() => history.push("/login")}>
               Submit
             </Button>
           </Form.Item>
         </Form>
+      
       </Card>
+      
     </div>
   );
 };
