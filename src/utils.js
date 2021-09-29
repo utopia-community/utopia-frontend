@@ -59,9 +59,8 @@ export const getAccountInfo = () => {
   });
 };
 
-const registerUrl = `${SERVER_ORIGIN}/register`;
-
 export const register = (data) => {
+  const registerUrl = "/register";
   return fetch(registerUrl, {
     method: "POST",
     headers: {
