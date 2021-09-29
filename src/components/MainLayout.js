@@ -11,7 +11,7 @@ const showLogoText = (isAdmin) => {
 
 const MainLayout = ({ user, children }) => {
   const history = useHistory();
-  const isAdmin = user.role === 'admin';
+  const isAdmin = user.role === "admin";
 
   const showIconsPerUserType = () => {
     return isAdmin ? (
