@@ -75,7 +75,7 @@ export const register = (data) => {
   });
 };
 
-const logoutUrl = `${SERVER_ORIGIN}/logout`;
+const logoutUrl = `/logout`;
 export const logout = (data) => {
   return fetch(logoutUrl, {
     method: "GET",
@@ -89,7 +89,7 @@ export const logout = (data) => {
 
 //----------Announcement Related APIs------------------
 
-const announcementsUrl = `${SERVER_ORIGIN}/announcements`;
+const announcementsUrl = `/announcements`;
 export const getAnnouncements = () => {
   return fetch(announcementsUrl).then((response) => {
     if (response.status < 200 || response.status >= 300) {
@@ -99,7 +99,7 @@ export const getAnnouncements = () => {
   });
 };
 
-const newAnnouncementUrl = `${SERVER_ORIGIN}/announcements/new-announcements`;
+const newAnnouncementUrl = `/announcements/new-announcement`;
 export const newAnnouncement = (data) => {
   return fetch(newAnnouncementUrl, {
     method: "POST",
@@ -117,7 +117,7 @@ export const newAnnouncement = (data) => {
 
 // ----------Requests APIs------------------
 
-const allRequestsUrl = `${SERVER_ORIGIN}/allRequests`;
+const allRequestsUrl = `/allRequests`;
 export const getAllRequests = () => {
   return fetch(allRequestsUrl).then((response) => {
     if (response.status < 200 || response.status >= 300) {
@@ -127,7 +127,7 @@ export const getAllRequests = () => {
   });
 };
 
-const setRequestStatusUrl = `${SERVER_ORIGIN}/setRequestStatus`;
+const setRequestStatusUrl = `/setRequestStatus`;
 export const setRequestStatus = (data) => {
   // takes in a list to support future mass update status
   return fetch(setRequestStatusUrl, {
@@ -143,7 +143,7 @@ export const setRequestStatus = (data) => {
   });
 };
 
-const getCurrentRequestsUrl = `${SERVER_ORIGIN}/currentRequests`;
+const getCurrentRequestsUrl = `/currentRequests`;
 export const getCurrentRequests = () => {
   return fetch(getCurrentRequestsUrl, {
     method: "GET",
@@ -156,7 +156,7 @@ export const getCurrentRequests = () => {
   });
 };
 
-const deleteRequestUrl = `${SERVER_ORIGIN}/deleteRequest`;
+const deleteRequestUrl = `/deleteRequest`;
 export const deleteRequest = (data) => {
   // takes in a list to support future mass update status
   return fetch(deleteRequestUrl, {
@@ -175,7 +175,7 @@ export const deleteRequest = (data) => {
 
 // ----------New Request APIs---------------
 
-const newRequestUrl = `${SERVER_ORIGIN}/newRequest`;
+const newRequestUrl = `/newRequest`;
 export const newRequest = (data) => {
   return fetch(newRequestUrl, {
     method: "POST",
