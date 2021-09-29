@@ -26,10 +26,20 @@ const PrivateRoute = ({ children, user, ...rest }) => {
     return <Redirect to={{ pathname: "/login", state: { from: location } }} />;
   }
 };
-
+// Redirects non-admin user to announcement page when user tries to admin-only page
 const PrivateAdminRoute = ({ children, user, ...rest }) => {
   const location = useLocation();
   if (user !== null && user.role === "admin") {
+    return <Route {...rest}>{children}</Route>;
+  } else {
+    return <Redirect to={{ pathname: "/", state: { from: location } }} />;
+  }
+};
+
+// Redirects admin user to announcement page when admin tries to access user-only page
+const PrivateUserRoute = ({ children, user, ...rest }) => {
+  const location = useLocation();
+  if (user !== null && user.role !== "admin") {
     return <Route {...rest}>{children}</Route>;
   } else {
     return <Redirect to={{ pathname: "/", state: { from: location } }} />;
@@ -80,11 +90,11 @@ function Main() {
           </MainLayout>
         </PrivateAdminRoute>
 
-        <PrivateRoute path="/profile" user={user} exact>
+        <PrivateUserRoute path="/profile" user={user} exact>
           <MainLayout user={user}>
             <MyProfile />
           </MainLayout>
-        </PrivateRoute>
+        </PrivateUserRoute>
       </Switch>
     </div>
   );
