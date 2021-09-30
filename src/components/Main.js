@@ -26,6 +26,7 @@ const PrivateRoute = ({ children, user, ...rest }) => {
     return <Redirect to={{ pathname: "/login", state: { from: location } }} />;
   }
 };
+
 // Redirects non-admin user to announcement page when user tries to admin-only page
 const PrivateAdminRoute = ({ children, user, ...rest }) => {
   const location = useLocation();
@@ -78,7 +79,11 @@ function Main() {
           </MainLayout>
         </PrivateRoute>
 
-        <PrivateAdminRoute path="/announcements/new-announcement" user={user} exact>
+        <PrivateAdminRoute
+          path="/announcements/new-announcement"
+          user={user}
+          exact
+        >
           <MainLayout user={user}>
             <NewAnnouncement />
           </MainLayout>

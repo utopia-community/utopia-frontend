@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom";
 import { Layout, Button, Space } from "antd";
 import "./MainLayout.css";
 import { AboutUs } from "./AboutUs.js";
+import { logout } from "../utils";
 
 const { Header, Content, Footer } = Layout;
 
@@ -49,7 +50,7 @@ const MainLayout = ({ user, children }) => {
   };
 
   const onLogout = (e) => {
-    console.log("Log out");
+    logout();
   };
 
   return (

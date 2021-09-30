@@ -48,9 +48,6 @@ export const getAccountInfo = () => {
       throw Error("Fail to get account information");
     }
 
-    console.log("fetched response is: ");
-    console.log(response);
-
     var data = response.json();
     if (data === null) {
       message.warning("Please login");
@@ -59,8 +56,8 @@ export const getAccountInfo = () => {
   });
 };
 
+const registerUrl = `${SERVER_ORIGIN}/register`;
 export const register = (data) => {
-  const registerUrl = "/register";
   return fetch(registerUrl, {
     method: "POST",
     headers: {
@@ -75,8 +72,7 @@ export const register = (data) => {
   });
 };
 
-const logoutUrl = `${SERVER_ORIGIN}/logout`;
-
+const logoutUrl = `/logout`;
 export const logout = (data) => {
   return fetch(logoutUrl, {
     method: "GET",
@@ -90,8 +86,9 @@ export const logout = (data) => {
 
 //----------Announcement Related APIs------------------
 
+const announcementsUrl = `/announcements`;
 export const getAnnouncements = () => {
-  return fetch("/announcements").then((response) => {
+  return fetch(announcementsUrl).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get announcements");
     }
@@ -99,10 +96,9 @@ export const getAnnouncements = () => {
   });
 };
 
+const newAnnouncementUrl = `/announcements/new-announcement`;
 export const newAnnouncement = (data) => {
-  const newAnnoucementUrl = "/announcements/new-announcement";
-
-  return fetch(newAnnoucementUrl, {
+  return fetch(newAnnouncementUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -118,8 +114,9 @@ export const newAnnouncement = (data) => {
 
 // ----------Requests APIs------------------
 
+const allRequestsUrl = `/allRequests`;
 export const getAllRequests = () => {
-  return fetch("/allRequests").then((response) => {
+  return fetch(allRequestsUrl).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get requests");
     }
@@ -127,9 +124,8 @@ export const getAllRequests = () => {
   });
 };
 
+const setRequestStatusUrl = `/setRequestStatus`;
 export const setRequestStatus = (data) => {
-  const setRequestStatusUrl = "/setRequestStatus";
-
   // takes in a list to support future mass update status
   return fetch(setRequestStatusUrl, {
     method: "PATCH",
@@ -144,8 +140,9 @@ export const setRequestStatus = (data) => {
   });
 };
 
+const getCurrentRequestsUrl = `/currentRequests`;
 export const getCurrentRequests = () => {
-  return fetch("/currentRequests", {
+  return fetch(getCurrentRequestsUrl, {
     method: "GET",
     credentials: "include",
   }).then((response) => {
@@ -156,9 +153,10 @@ export const getCurrentRequests = () => {
   });
 };
 
+const deleteRequestUrl = `/deleteRequest`;
 export const deleteRequest = (data) => {
   // takes in a list to support future mass update status
-  return fetch("/deleteRequest", {
+  return fetch(deleteRequestUrl, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -174,9 +172,8 @@ export const deleteRequest = (data) => {
 
 // ----------New Request APIs---------------
 
+const newRequestUrl = `/newRequest`;
 export const newRequest = (data) => {
-  const newRequestUrl = "/newRequest";
-
   return fetch(newRequestUrl, {
     method: "POST",
     headers: {
@@ -189,8 +186,4 @@ export const newRequest = (data) => {
       throw Error("Fail to create new request");
     }
   });
-};
-
-export const getCurrentUserRole = () => {
-  return true;
 };
