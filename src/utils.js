@@ -48,9 +48,6 @@ export const getAccountInfo = () => {
       throw Error("Fail to get account information");
     }
 
-    console.log("fetched response is: ");
-    console.log(response);
-
     var data = response.json();
     if (data === null) {
       message.warning("Please login");
