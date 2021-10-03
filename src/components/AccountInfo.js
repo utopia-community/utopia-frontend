@@ -22,20 +22,10 @@ class AccountInfo extends React.Component {
         this.setState({
           accountInfo: res,
         });
-        console.log("got account info");
-        console.log(res);
       })
       .catch((err) => {
-        console.log("did not get account info");
         message.error(err.message);
       });
-
-    // 2. query current logged in user's REQUES.
-    // getAllRequests()
-    //   .then(res => {
-    //       this.setState({orderData: res});
-    //       console.log(res);
-    //   });
   }
   render() {
     return (
