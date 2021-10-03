@@ -1,28 +1,28 @@
 .Announcement-background {
-  background-image: url(../images/main-background.jpg);
-  background-position: 0% 60%;
-  background-size: 100vw auto;
-  background-repeat: no-repeat;
-  height: 120px;
-  padding: 50px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
+    background-image: url(../images/main-background.jpg);
+    background-position: 0% 60%;
+    background-size: 100vw auto;
+    background-repeat: no-repeat;
+    height: 120px;
+    padding: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .Announcement-cardSection {
-  padding-top: 50px;
-  padding-bottom: 50px;
-  padding-left: 100px;
-  padding-right: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 .Announcement-card {
-  height: 100%;
-  min-height: 200px;
-  text-align: center;
+    height: 100%;
+    min-height: 200px;
+    text-align: center;
 }
 
 .Announcement-title {
-  font-size: 18px;
+    font-size: 18px;
 }

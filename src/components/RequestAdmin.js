@@ -1,46 +1,46 @@
-import {useState, useEffect} from "react";
-import {Card, Button, message, Table, Tag, Row, Col} from "antd";
+import { useState, useEffect } from "react";
+import { Card, Button, message, Table, Tag, Row, Col } from "antd";
 import Title from "antd/es/typography/Title";
-import {BookOutlined, FireOutlined, ToolOutlined} from "@ant-design/icons";
+import { BookOutlined, FireOutlined, ToolOutlined } from "@ant-design/icons";
 
-import {getAllRequests, setRequestStatus} from "../utils";
+import { getAllRequests, setRequestStatus } from "../utils";
 import "./RequestAdmin.css";
 
 // RequestAdmin Component
 // All requests visible by Admin
 const RequestAdmin = () => {
-  const [allRequests, setAllRequests] = useState([]);
+    const [allRequests, setAllRequests] = useState([]);
 
-  // update fetchRequests state whenever admin updates the request status
-  const [fetchRequests, setFetchRequests] = useState(true);
-  useEffect(() => {
-    if (fetchRequests) {
-      getAllRequests()
-        .then((data) => {
-          setAllRequests(data);
-          setFetchRequests(false);
+    // update fetchRequests state whenever admin updates the request status
+    const [fetchRequests, setFetchRequests] = useState(true);
+    useEffect(() => {
+        if (fetchRequests) {
+            getAllRequests()
+                .then((data) => {
+                    setAllRequests(data);
+                    setFetchRequests(false);
+                })
+                .catch((err) => {
+                    message.error(err.message);
+                    setFetchRequests(false);
+                });
+        }
+    }, [fetchRequests]);
+
+    // api call to update status
+    const updateStatus = (requestId, newStatus) => {
+        setRequestStatus({
+            requestId: requestId,
+            status: newStatus,
         })
-        .catch((err) => {
-          message.error(err.message);
-          setFetchRequests(false);
-        });
-    }
-  }, [fetchRequests]);
-
-  // api call to update status
-  const updateStatus = (requestId, newStatus) => {
-    setRequestStatus({
-      requestId: requestId,
-      status: newStatus,
-    })
-      .then(() => {
-        setFetchRequests(true);
-        message.success("Successfully updated status.");
-      })
-      .catch((err) => {
-        message.error(err.message);
-      });
-  };
+            .then(() => {
+                setFetchRequests(true);
+                message.success("Successfully updated status.");
+            })
+            .catch((err) => {
+                message.error(err.message);
+            });
+    };
 
     // Define columns
     const columns = [

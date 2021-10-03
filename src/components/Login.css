@@ -1,14 +1,14 @@
 .Login-background {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(../images/townhouse-background.jpeg);
-  background-size: cover;
-  background-position: center;
-  width: 100vw;
-  height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../images/townhouse-background.jpeg);
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
 }
 
 .Login-card {
-  width: 640px;
+    width: 640px;
 }
