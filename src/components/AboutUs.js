@@ -1,17 +1,18 @@
 import React from "react";
+import "./AboutUs.css";
 
 export const AboutUs = () => {
   return (
-    <div>
-      <div>About us</div>
-      <div>
+    <div className="AboutUs-div">
+      <p>
+        About us
+        <br />
         Utopia community features townhouses with spacious interiors,
         light-filled rooms, modern finishes and the latest in smart home tech.
-      </div>
-      <div>
+        <br />
         These are accompanied by a collection of outdoor spaces and
         hospitality-focused amenities.
-      </div>
+      </p>
     </div>
   );
 };
