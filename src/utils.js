@@ -19,21 +19,24 @@ export const login = (credential) => {
     body: urlencoded,
     redirect: "follow",
     credentials: "include",
-  }).then((response) => {
-    if (response.status !== 200) {
-      throw Error("Fail to log in");
-    }
-
-    return getAccountInfo().then((user) => {
-      // TODO(sweeyongc): Once getCurrentUserRole is implemented, call that API here,
-      // and then return a combined object containing account info and role.
-      if (user.email.startsWith("admin")) {
-        return { ...user, role: "admin" };
-      } else {
-        return { ...user, role: "user" };
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw Error("Fail to log in");
       }
+      return response.json();
+    })
+    .then((json) => {
+      return getAccountInfo().then((user) => {
+        // check user role
+        const role = json.authority; 
+        if (role === "ROLE_ADMIN") {
+          return { ...user, role: "admin" };
+        } else {
+          return { ...user, role: "user" };
+        }
+      });
     });
-  });
 };
 
 const getAccountInfoUrl = `${SERVER_ORIGIN}/accountinfo`;
