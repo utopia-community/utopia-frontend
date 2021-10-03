@@ -186,9 +186,9 @@ const Request = () => {
                     dataSource={currentRequests}
                     rowKey="requestId"
                     pagination={{
-                        onChange: (page) => {
-                            console.log(page);
-                        },
+                        // onChange: (page) => {
+                        //     console.log(page);
+                        // },
                         pageSize: 5,
                     }}
                 />

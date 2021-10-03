@@ -23,9 +23,15 @@ export const login = (credential) => {
     if (response.status !== 200) {
       throw Error("Fail to log in");
     }
-    // chaining fetch
-    getAccountInfo().then((data) => {
-      message.success(`Welcome back, ${data.firstName + " " + data.lastName}`);
+
+    return getAccountInfo().then((user) => {
+      // TODO(sweeyongc): Once getCurrentUserRole is implemented, call that API here,
+      // and then return a combined object containing account info and role.
+      if (user.email.startsWith("admin")) {
+        return { ...user, role: "admin" };
+      } else {
+        return { ...user, role: "user" };
+      }
     });
   });
 };
@@ -41,7 +47,7 @@ export const getAccountInfo = () => {
     if (response.status !== 200) {
       throw Error("Fail to get account information");
     }
-    console.log("got fetched data from backend");
+
     console.log("fetched response is: ");
     console.log(response);
 
@@ -53,9 +59,8 @@ export const getAccountInfo = () => {
   });
 };
 
-const registerUrl = `${SERVER_ORIGIN}/register`;
-
 export const register = (data) => {
+  const registerUrl = "/register";
   return fetch(registerUrl, {
     method: "POST",
     headers: {
@@ -142,7 +147,7 @@ export const setRequestStatus = (data) => {
 export const getCurrentRequests = () => {
   return fetch("/currentRequests", {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then((response) => {
     if (response.status < 200 || response.status >= 300) {
       throw Error("Fail to get requests");
@@ -184,4 +189,8 @@ export const newRequest = (data) => {
       throw Error("Fail to create new request");
     }
   });
+};
+
+export const getCurrentUserRole = () => {
+  return true;
 };

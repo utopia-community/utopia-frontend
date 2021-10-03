@@ -6,42 +6,41 @@ import {BookOutlined, FireOutlined, ToolOutlined} from "@ant-design/icons";
 import {getAllRequests, setRequestStatus} from "../utils";
 import "./RequestAdmin.css";
 
-
 // RequestAdmin Component
 // All requests visible by Admin
 const RequestAdmin = () => {
-    const [allRequests, setAllRequests] = useState([]);
+  const [allRequests, setAllRequests] = useState([]);
 
-    // update fetchRequests state whenever admin updates the request status
-    const [fetchRequests, setFetchRequests] = useState(true);
-    useEffect(() => {
-        if (fetchRequests) {
-            getAllRequests()
-                .then((data) => {
-                    setAllRequests(data);
-                    setFetchRequests(false);
-                })
-                .catch((err) => {
-                    message.error(err.message);
-                    setFetchRequests(false);
-                });
-        }
-    }, [fetchRequests]);
-
-    // api call to update status
-    const updateStatus = (requestId, newStatus) => {
-        setRequestStatus({
-            requestId: requestId,
-            status: newStatus,
+  // update fetchRequests state whenever admin updates the request status
+  const [fetchRequests, setFetchRequests] = useState(true);
+  useEffect(() => {
+    if (fetchRequests) {
+      getAllRequests()
+        .then((data) => {
+          setAllRequests(data);
+          setFetchRequests(false);
         })
-            .then(() => {
-                setFetchRequests(true);
-                message.success("Successfully updated status.");
-            })
-            .catch((err) => {
-                message.error(err.message);
-            });
-    };
+        .catch((err) => {
+          message.error(err.message);
+          setFetchRequests(false);
+        });
+    }
+  }, [fetchRequests]);
+
+  // api call to update status
+  const updateStatus = (requestId, newStatus) => {
+    setRequestStatus({
+      requestId: requestId,
+      status: newStatus,
+    })
+      .then(() => {
+        setFetchRequests(true);
+        message.success("Successfully updated status.");
+      })
+      .catch((err) => {
+        message.error(err.message);
+      });
+  };
 
     // Define columns
     const columns = [
@@ -180,9 +179,9 @@ const RequestAdmin = () => {
                     dataSource={allRequests}
                     rowKey="requestId"
                     pagination={{
-                        onChange: (page) => {
-                            console.log(page);
-                        },
+                        // onChange: (page) => {
+                        //     console.log(page);
+                        // },
                         pageSize: 5,
                     }}
                 />

@@ -1,11 +1,52 @@
 import { useHistory } from "react-router-dom";
 import { Layout, Button, Space } from "antd";
 import "./MainLayout.css";
+import { AboutUs } from "./AboutUs.js";
 
 const { Header, Content, Footer } = Layout;
 
-const MainLayout = ({ children }) => {
+const showLogoText = (isAdmin) => {
+  return isAdmin ? "UTOPIA|ADMIN" : "UTOPIA";
+};
+
+const MainLayout = ({ user, children }) => {
   const history = useHistory();
+  const isAdmin = user.role === "admin";
+
+  const showIconsPerUserType = () => {
+    return isAdmin ? (
+      <>
+        <Button
+          type="text"
+          size="middle"
+          onClick={() => {
+            history.push("/requests");
+          }}
+        >
+          Requests
+        </Button>
+        <Button
+          type="text"
+          size="middle"
+          onClick={() => {
+            history.push("/announcements/new-announcement");
+          }}
+        >
+          New announcement
+        </Button>
+      </>
+    ) : (
+      <Button
+        type="text"
+        size="middle"
+        onClick={() => {
+          history.push("/profile");
+        }}
+      >
+        My profile
+      </Button>
+    );
+  };
 
   const onLogout = (e) => {
     console.log("Log out");
@@ -20,7 +61,7 @@ const MainLayout = ({ children }) => {
             onClick={() => history.push("/announcements")}
             className="MainLayout-logo"
           >
-            UTOPIA
+            {showLogoText(isAdmin)}
           </a>
           <div className="MainLayout-buttonDiv">
             <Space>
@@ -33,37 +74,8 @@ const MainLayout = ({ children }) => {
               >
                 Home
               </Button>
-              {/* to perform role check for new announcement and requests from login API*/}
-              {/* Update routing to request management page */}
-              <Button
-                type="text"
-                size="middle"
-                onClick={() => {
-                  history.push("/admin/requests");
-                }}
-              >
-                Requests
-              </Button>
 
-              <Button
-                type="text"
-                size="middle"
-                onClick={() => {
-                  history.push("/announcements/new-announcement");
-                }}
-              >
-                New announcement
-              </Button>
-
-              <Button
-                type="text"
-                size="middle"
-                onClick={() => {
-                  history.push("/profile");
-                }}
-              >
-                My profile
-              </Button>
+              {showIconsPerUserType()}
 
               <Button
                 type="text"
@@ -81,17 +93,8 @@ const MainLayout = ({ children }) => {
       </Header>
 
       <Content>{children}</Content>
-
+      <AboutUs />
       <Footer className="MainLayout-footer">
-        <div>About us</div>
-        <div>
-          Utopia community features townhouses with spacious interiors,
-          light-filled rooms, modern finishes and the latest in smart home tech.
-        </div>
-        <div>
-          These are accompanied by a collection of outdoor spaces and
-          hospitality-focused amenities.
-        </div>
         <div className="MainLayout-footerSpacing">
           3645 Haven Avenue Menlo Park, CA 94025 | contactus@utopia.com |
           650-708-1111

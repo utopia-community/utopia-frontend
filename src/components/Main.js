@@ -18,76 +18,85 @@ import RequestAdmin from "./RequestAdmin.js";
 
 // React private route:
 // Redirects user to login page when a user is not logged in and tries to access other url that requires login
-const PrivateRoute = ({ children, authenticated, ...rest }) => {
+const PrivateRoute = ({children, user, ...rest}) => {
   const location = useLocation();
-  if (authenticated) {
+  if (user !== null) {
     return <Route {...rest}>{children}</Route>;
   } else {
-    return <Redirect to={{ pathname: "/login", state: { from: location } }} />;
+    return <Redirect to={{pathname: "/login", state: {from: location}}}/>;
+  }
+};
+// Redirects non-admin user to announcement page when user tries to admin-only page
+const PrivateAdminRoute = ({children, user, ...rest}) => {
+  const location = useLocation();
+  if (user !== null && user.role === "admin") {
+    return <Route {...rest}>{children}</Route>;
+  } else {
+    return <Redirect to={{pathname: "/", state: {from: location}}}/>;
+  }
+};
+
+// Redirects admin user to announcement page when admin tries to access user-only page
+const PrivateUserRoute = ({children, user, ...rest}) => {
+  const location = useLocation();
+  if (user !== null && user.role !== "admin") {
+    return <Route {...rest}>{children}</Route>;
+  } else {
+    return <Redirect to={{pathname: "/", state: {from: location}}}/>;
   }
 };
 
 function Main() {
   // update the latest routing path using history
   const history = useHistory();
-
-  const [authenticated, setAuthenticated] = React.useState(false);
-  console.log("App: ", authenticated);
+  const [user, setUser] = React.useState(null);
 
   return (
-    <div>
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
+      <div>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/announcements"/>
+          </Route>
 
-        {/* upon successful login, redirect user to announcements page */}
-        <Route path="/login">
-          <Login
-            onLogin={() => {
-              setAuthenticated(true);
-              history.push("/announcements");
-            }}
-          />
-        </Route>
+          {/* upon successful login, redirect user to announcements page */}
+          <Route path="/login">
+            <Login
+                onLogin={(user) => {
+                  setUser(user);
+                  history.push("/announcements");
+                }}
+            />
+          </Route>
 
-        <Route path="/register">
-          <Register />
-        </Route>
+          <Route path="/register">
+            <Register/>
+          </Route>
 
-        <PrivateRoute path="/announcements" authenticated={authenticated} exact>
-          <MainLayout>
-            <Announcement />
-          </MainLayout>
-        </PrivateRoute>
+          <PrivateRoute path="/announcements" user={user} exact>
+            <MainLayout user={user}>
+              <Announcement/>
+            </MainLayout>
+          </PrivateRoute>
 
-        <PrivateRoute
-          path="/announcements/new-announcement"
-          authenticated={authenticated}
-          exact
-        >
-          <MainLayout>
-            <NewAnnouncement />
-          </MainLayout>
-        </PrivateRoute>
+          <PrivateAdminRoute path="/announcements/new-announcement" user={user} exact>
+            <MainLayout user={user}>
+              <NewAnnouncement/>
+            </MainLayout>
+          </PrivateAdminRoute>
 
-        <PrivateRoute
-          path="/admin/requests"
-          authenticated={authenticated}
-          exact
-        >
-          <MainLayout>
-            <RequestAdmin />
-          </MainLayout>
-        </PrivateRoute>
+          <PrivateAdminRoute path="/requests" user={user} exact>
+            <MainLayout user={user}>
+              <RequestAdmin/>
+            </MainLayout>
+          </PrivateAdminRoute>
 
-        <PrivateRoute path="/profile" authenticated={authenticated} exact>
-          <MainLayout>
-            <MyProfile />
-          </MainLayout>
-        </PrivateRoute>
-      </Switch>
-    </div>
+          <PrivateUserRoute path="/profile" user={user} exact>
+            <MainLayout user={user}>
+              <MyProfile/>
+            </MainLayout>
+          </PrivateUserRoute>
+        </Switch>
+      </div>
   );
 }
 

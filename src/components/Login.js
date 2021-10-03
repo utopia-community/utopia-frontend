@@ -8,9 +8,11 @@ const Login = (props) => {
 
   const onFinish = (data) => {
     login(data)
-      .then(() => {
-        console.log("successfully logged in");
-        props.onLogin();
+      .then((user) => {
+        message.success(
+          `Welcome back, ${user.firstName + " " + user.lastName}`
+        );
+        props.onLogin(user);
       })
       .catch((err) => {
         message.error(err.message);
